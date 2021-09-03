@@ -8,7 +8,7 @@ public class Usuario {
 	private String nombreUusuario;
 	private String email;
 	public enum tipoUsuario{
-		usuario, administrador;
+		usuario, administrador, superAdministrador;
 	};
 	private String clave;
 	
