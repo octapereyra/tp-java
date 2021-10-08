@@ -5,12 +5,11 @@ public class Usuario {
 	private int id_usuario;
 	private String nombre;
 	private String apellido;
-	private String nombreUusuario;
+	private String nombreUsuario;
 	private String email;
-	public enum tipoUsuario{
-		usuario, administrador, superAdministrador;
-	};
+	private TipoUsuario tipoUsuario;
 	private String clave;
+	
 	
 	public int getId_usuario() {
 		return id_usuario;
@@ -30,11 +29,11 @@ public class Usuario {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-	public String getNombreUusuario() {
-		return nombreUusuario;
+	public String getNombreUsuario() {
+		return nombreUsuario;
 	}
-	public void setNombreUusuario(String nombreUusuario) {
-		this.nombreUusuario = nombreUusuario;
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
 	}
 	public String getEmail() {
 		return email;
@@ -47,6 +46,12 @@ public class Usuario {
 	}
 	public void setClave(String clave) {
 		this.clave = clave;
+	}
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
+	}
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 	
 
