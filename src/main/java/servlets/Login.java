@@ -46,7 +46,11 @@ public class Login extends HttpServlet {
 		
 		us= lu.validate(us);
 		
-		response.getWriter().append("Bienvenido ").append(us.getNombre()).append(us.getApellido());
+		request.getSession().setAttribute("user", us);
+		//response.getWriter().append("Bienvenido ").append(us.getNombre()).append(us.getApellido());
+		
+		request.getRequestDispatcher("WEB-INF/mainPage.jsp").forward(request, response);
+		
 	}
 
 }
