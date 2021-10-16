@@ -6,6 +6,7 @@ public class Producto {
 	private String descripcion;
 	private double precio;
 	private int stock;
+	private Categoria categoria;
 	
 	public int getId() {
 		return id;
@@ -30,6 +31,12 @@ public class Producto {
 	}
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 	
 	
