@@ -4,14 +4,14 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Login</title>
-	<link rel="stylesheet" href="css/Login_style.css"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>Login</title> 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" 
 	rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
-	
+	<link rel="stylesheet" href="css/Login_style.css">
 </head>
 <body>
-	<div class="container">
+	<main class="container">
 		<div class="row">
 			<div class="col-md-4 offset-md-4">
 				<div class="login-form bg-light mt-4 p-4">
@@ -42,6 +42,6 @@
 				</div>
 			</div>
 		</div>		
-	</div>
+	</main>
 </body>
 </html>
