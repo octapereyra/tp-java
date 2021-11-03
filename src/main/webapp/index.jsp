@@ -37,7 +37,7 @@
 					</form>
 					<hr class="mt-4">
                     <div class="col-12">
-                        <p class="text-center mb-0">¿Todavia no tienes una cuenta? <a href="#">Registrate</a></p>
+                        <p class="text-center mb-0">¿Todavia no tienes una cuenta? <a href="register.jsp">Registrate</a></p>
                     </div>
 				</div>
 			</div>
