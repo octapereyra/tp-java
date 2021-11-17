@@ -3,16 +3,57 @@ package data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 
 import entities.Categoria;
 import entities.Producto;
+import entities.TipoUsuario;
+import entities.Usuario;
 
 
 public class DataProducto {
 	
-	
-public LinkedList<Producto> getByPrecio(Producto pro, String cond) {
+	public LinkedList<Producto> getAll(){
+		Statement stmt=null;
+		ResultSet rs=null;
+		LinkedList<Producto> productos= new LinkedList<>();
+		
+		try {
+			stmt= DbConnector.getInstancia().getConn().createStatement();
+			rs= stmt.executeQuery("SELECT * FROM producto "
+					+ "inner join categoria c on c.id_categoria = p.id_categoria;");
+			
+			if(rs!=null) {
+				while(rs.next()) {
+					Producto p= new Producto();
+					p.setId(rs.getInt("id_producto"));
+					p.setDescripcion(rs.getString("descripcion"));
+					p.setPrecio(rs.getDouble("precio"));
+					p.setStock(rs.getInt("stock"));
+					p.setCategoria(new Categoria());
+					p.getCategoria().setId_categoria(rs.getInt("id_categoria"));;
+					p.getCategoria().setDenominacion(rs.getString("denominacion"));
+					productos.add(p);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return productos;
+	}
+
+	public LinkedList<Producto> getByPrecio(Producto pro, String cond) {
 		
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -60,6 +101,47 @@ public LinkedList<Producto> getByPrecio(Producto pro, String cond) {
 		}
 		
 		return listProd;
+	}
+	
+	public LinkedList<Producto> getByCategoria(String denominacion){
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		LinkedList<Producto> productos= new LinkedList<>();
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(
+					"select p.id_producto,p.descripcion,p.precio from producto p "
+					+ "inner join categoria c on p.id_categoria=c.id_categoria "
+					+ "where c.denominacion=?;"
+					);
+			stmt.setString(1, denominacion);
+			rs=stmt.executeQuery();
+			
+			if(rs!=null) {
+				while(rs.next()) {
+					Producto p= new Producto();
+					p.setId(rs.getInt("id_producto"));
+					p.setDescripcion(rs.getString("descripcion"));
+					p.setPrecio(rs.getDouble("precio"));
+					
+					productos.add(p);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return productos;
 	}
 
 }

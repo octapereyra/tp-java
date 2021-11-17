@@ -59,15 +59,22 @@
         	<div class="col-auto px-0 bg-dark">
             	<div id="sidebar" class="collapse collapse-horizontal show border-end">
                 	<div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start min-vh-100">
-                    	<a href="#" class="list-group-item  list-group-item-dark border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><span>Microprocesadores</span> </a>
-                    	<a href="#" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><span>Motherboards</span> </a>
-                    	<a href="#" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><span>Memoria Ram</span> </a>
-                    	<a href="#" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><span>Discos Rígidos</span> </a>
-                    	<a href="#" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><span>Placas De Video</span> </a>
-                    	<a href="#" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><span>Gabinetes</span> </a>
-                    	<a href="#" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><span>Fuentes</span> </a>
-                    	<a href="#" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><span>Coolers</span> </a>
-                    	<a href="#" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><span>Placas de sonido</span> </a>
+                    	<a href="./microprocesadores.jsp" class="list-group-item  list-group-item-dark border-end-0 d-inline-block text-truncate" 
+                    	data-bs-parent="#sidebar"><span>Microprocesadores</span> </a>
+                    	<a href="./Motherboards.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
+                    	data-bs-parent="#sidebar"><span>Motherboards</span> </a>
+                    	<a href="./MemoriasRam.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
+                    	data-bs-parent="#sidebar"><span>Memoria Ram</span> </a>
+                    	<a href="./DiscosRigidos.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
+                    	data-bs-parent="#sidebar"><span>Discos Rígidos</span> </a>
+                    	<a href="./PlacasDeVideo.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
+                    	data-bs-parent="#sidebar"><span>Placas De Video</span> </a>
+                    	<a href="./Gabinetes.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
+                    	data-bs-parent="#sidebar"><span>Gabinetes</span> </a>
+                    	<a href="./Fuentes.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
+                    	data-bs-parent="#sidebar"><span>Fuentes</span> </a>
+                    	<a href="./Coolers.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
+                    	data-bs-parent="#sidebar"><span>Coolers</span> </a>
                 	</div>
             	</div>
         	</div>

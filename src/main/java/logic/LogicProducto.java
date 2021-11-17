@@ -13,6 +13,10 @@ public class LogicProducto {
 		dp=new DataProducto();
 	}
 	
+	public LinkedList<Producto> getAll(){
+		return dp.getAll();
+	}
+	
 	public LinkedList<Producto> getbyPrecio(Producto pro, String cond){
 		return dp.getByPrecio(pro, cond);
 	}

@@ -32,19 +32,19 @@ public class ListProduct extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		Producto pr = new Producto();
-		LogicProducto lp = new LogicProducto();
-		String cond = null;
-		
-		pr.setPrecio(Integer.parseInt(request.getParameter("precio")));
-		
-		cond = getPressedBtn(request);
-		
-		LinkedList<Producto> listProd = lp.getbyPrecio(pr, cond);
-		
-		request.setAttribute("lista", listProd);
-		request.getRequestDispatcher("listProducts.jsp").forward(request, response);
+				//response.getWriter().append("Served at: ").append(request.getContextPath());
+				Producto pr = new Producto();
+				LogicProducto lp = new LogicProducto();
+				String cond = null;
+				
+				pr.setPrecio(Integer.parseInt(request.getParameter("precio")));
+				
+				cond = getPressedBtn(request);
+				
+				LinkedList<Producto> listProd = lp.getbyPrecio(pr, cond);
+				
+				request.setAttribute("lista", listProd);
+				request.getRequestDispatcher("listProducts.jsp").forward(request, response);
 		
 	}
 
@@ -59,5 +59,7 @@ public class ListProduct extends HttpServlet {
 	private String getPressedBtn(HttpServletRequest request){
 	    return request.getParameter("button");
 	}
+	
+	
 
 }
