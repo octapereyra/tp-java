@@ -63,6 +63,39 @@ public class ABMCproducto extends HttpServlet {
 			listaProductos = lp.getAll();
 			request.setAttribute("lista", listaProductos);
 			distpacher = request.getRequestDispatcher("listProducts.jsp");
+		}else if("modificar".equals(accion)) {
+			
+			int id = Integer.parseInt(request.getParameter("id"));
+			Producto prod = lp.getOne(id);
+			request.setAttribute("producto", prod);
+			distpacher = request.getRequestDispatcher("modificarProducto.jsp");
+			
+		}else if("update".equals(accion)) {
+			Producto pr = new Producto();
+			Categoria cat;
+			
+			pr.setId(Integer.parseInt(request.getParameter("id")));
+			pr.setDescripcion(request.getParameter("descripcion"));
+			pr.setPrecio(Double.parseDouble(request.getParameter("precio")));
+			pr.setStock(Integer.parseInt(request.getParameter("stock")));
+			cat = lc.getByDenominacion(request.getParameter("tipoProducto"));
+			pr.setCategoria(cat);
+			lp.update(pr);
+			
+			
+			listaProductos = lp.getAll();
+			request.setAttribute("lista", listaProductos);
+			distpacher = request.getRequestDispatcher("listProducts.jsp");
+		}else if("eliminar".equals(accion)) {
+			Producto pr = new Producto();
+			
+			pr.setId(Integer.parseInt(request.getParameter("id")));
+			
+			lp.delete(pr);	
+			
+			listaProductos = lp.getAll();
+			request.setAttribute("lista", listaProductos);
+			distpacher = request.getRequestDispatcher("listProducts.jsp");
 		}
 		
 		distpacher.forward(request, response);

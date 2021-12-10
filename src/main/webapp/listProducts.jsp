@@ -46,11 +46,13 @@
 		  <% Categoria cat = new Categoria(); %>
 		  <% cat = pr.getCategoria(); %>
 		    <tr>
-<%-- 		      <td><%=pr.getId() %></td> --%>
 		      <td><%=cat.getDenominacion() %></td>
 		      <td><%=pr.getDescripcion() %></td>
 		      <td><%=pr.getPrecio() %></td>
-<%-- 		      <td><%=pr.getStock() %></td> --%>
+		      <%-- 		      <td><%=pr.getStock() %></td> --%>
+			  <td><a class="btn" href="ABMCproducto?accion=modificar&id=<%=pr.getId() %>">Modificar</a></td>
+			  <td><a class="btn" href="ABMCproducto?accion=eliminar&id=<%=pr.getId() %>">Eliminar</a></td>
+			  
 		    </tr>
 		    <% } %>
 		  </tbody>
