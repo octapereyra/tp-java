@@ -21,19 +21,20 @@ public class DataProducto {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("SELECT * FROM producto "
+			rs= stmt.executeQuery("SELECT p.id_producto,p.descripcion,p.precio,p.stock,c.id_categoria,c.denominacion "
+					+ "FROM producto p "
 					+ "inner join categoria c on c.id_categoria = p.id_categoria;");
 			
 			if(rs!=null) {
 				while(rs.next()) {
 					Producto p= new Producto();
-					p.setId(rs.getInt("id_producto"));
-					p.setDescripcion(rs.getString("descripcion"));
-					p.setPrecio(rs.getDouble("precio"));
-					p.setStock(rs.getInt("stock"));
+					p.setId(rs.getInt(1));
+					p.setDescripcion(rs.getString(2));
+					p.setPrecio(rs.getDouble(3));
+					p.setStock(rs.getInt(4));
 					p.setCategoria(new Categoria());
-					p.getCategoria().setId_categoria(rs.getInt("id_categoria"));;
-					p.getCategoria().setDenominacion(rs.getString("denominacion"));
+					p.getCategoria().setId_categoria(rs.getInt(5));;
+					p.getCategoria().setDenominacion(rs.getString(6));
 					productos.add(p);
 				}
 			}
@@ -143,5 +144,39 @@ public class DataProducto {
 		}
 		return productos;
 	}
+	
+	public void add(Producto p) {
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"insert into producto(descripcion, precio, stock, id_categoria) values(?,?,?,?)",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setString(1, p.getDescripcion());
+			stmt.setDouble(2, p.getPrecio());
+			stmt.setInt(3, p.getStock());
+			stmt.setInt(4, p.getCategoria().getId_categoria());
+			stmt.executeUpdate();
+			
+			keyResultSet=stmt.getGeneratedKeys();
+            if(keyResultSet!=null && keyResultSet.next()){
+                p.setId(keyResultSet.getInt(1));
+            }
+
+			
+		}  catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+    }
 
 }

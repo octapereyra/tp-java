@@ -18,39 +18,32 @@ import logic.LogicProducto;
 @WebServlet({"/ListProducts", "/listProducts"})
 public class ListProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public ListProduct() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-				//response.getWriter().append("Served at: ").append(request.getContextPath());
-				Producto pr = new Producto();
-				LogicProducto lp = new LogicProducto();
-				String cond = null;
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
+    	Producto pr = new Producto();
+		LogicProducto lp = new LogicProducto();
+		String cond = null;
+		LinkedList<Producto> listProd;
+		
+		if(request.getParameter("precio").isBlank()) {
+				listProd = lp.getAll();
+			}else {
 				pr.setPrecio(Integer.parseInt(request.getParameter("precio")));
-				
 				cond = getPressedBtn(request);
+				listProd = lp.getbyPrecio(pr, cond);
+			}
 				
-				LinkedList<Producto> listProd = lp.getbyPrecio(pr, cond);
-				
-				request.setAttribute("lista", listProd);
-				request.getRequestDispatcher("listProducts.jsp").forward(request, response);
+		request.setAttribute("lista", listProd);
+		request.getRequestDispatcher("listProducts.jsp").forward(request, response);
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
@@ -59,7 +52,5 @@ public class ListProduct extends HttpServlet {
 	private String getPressedBtn(HttpServletRequest request){
 	    return request.getParameter("button");
 	}
-	
-	
 
 }

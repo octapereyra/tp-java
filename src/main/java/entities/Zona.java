@@ -3,7 +3,7 @@ package entities;
 public class Zona {
 	private int cod_zona;
 	private String descripcion;
-	private int id_flete;
+	private Flete flete;
 	
 	public int getCod_zona() {
 		return cod_zona;
@@ -17,11 +17,12 @@ public class Zona {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public int getId_flete() {
-		return id_flete;
+	public Flete getFlete() {
+		return flete;
 	}
-	public void setId_flete(int id_flete) {
-		this.id_flete = id_flete;
+	public void setFlete(Flete flete) {
+		this.flete = flete;
 	}
+	
 	
 }

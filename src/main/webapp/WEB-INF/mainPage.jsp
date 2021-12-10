@@ -30,6 +30,9 @@
     				<li class="nav-item">
     					<a class="nav-link active" aria-current="page" href="#">Home</a>
     				</li>
+    				<li class="nav-item">
+    					<a class="nav-link" aria-current="page" href="./listProducts.jsp">Productos</a>
+    				</li>
     				<li class="nav-item dropdown"> 
     					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Mi cuenta</a>
     					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -57,7 +60,7 @@
 	<div class="container-fluid bg-dark">
     	<div class="row flex-nowrap">
         	<div class="col-auto px-0 bg-dark">
-            	<div id="sidebar" class="collapse collapse-horizontal show border-end">
+            	<div id="sidebar" class="collapse collapse-horizontal show ">
                 	<div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start min-vh-100">
                     	<a href="./microprocesadores.jsp" class="list-group-item  list-group-item-dark border-end-0 d-inline-block text-truncate" 
                     	data-bs-parent="#sidebar"><span>Microprocesadores</span> </a>
@@ -79,7 +82,7 @@
             	</div>
         	</div>
         	<main class="col ps-md-0 pt-1 p-0">
-            	<a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1 text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i> Menu</a>
+            	<a href="#" data-bs-target="#sidebar" data-bs-toggle="collapse" class="border rounded-3 p-1  text-decoration-none"><i class="bi bi-list bi-lg py-2 p-1"></i> Menu</a>
             	<div class="row">
                 	<div class="col-12">
                     	<div id="carouselExampleSlidesOnly" class="carousel slide p-1" data-bs-ride="carousel">

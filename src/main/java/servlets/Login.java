@@ -46,10 +46,13 @@ public class Login extends HttpServlet {
 		
 		us= lu.validate(us);
 		
-		request.getSession().setAttribute("user", us);
-		//response.getWriter().append("Bienvenido ").append(us.getNombre()).append(us.getApellido());
-		
-		request.getRequestDispatcher("WEB-INF/mainPage.jsp").forward(request, response);
+		if(us != null) {
+	        request.getSession().setAttribute("user", us);
+	        //response.getWriter().append("Bienvenido ").append(us.getNombre()).append(us.getApellido());
+	        request.getRequestDispatcher("WEB-INF/mainPage.jsp").forward(request, response);
+	        }
+	        else {response.getWriter().append("Usuario inexistente");}
+	
 		
 	}
 
