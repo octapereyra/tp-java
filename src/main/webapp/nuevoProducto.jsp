@@ -21,40 +21,32 @@
 		    	<input id="stock" name="stock" type="text" class="form-control">
 		  	</div>
 		  	
-		  	<div class="input-group mb-3">
-		  		<label class="form-label px-1">Seleccione una categoria</label>
-  				<div class="input-group-text">
-    				<input name="tipoProducto" class="form-check-input mx-1" type="radio" value="Microprocesador">
-  					<input type="text" class="form-control" placeholder="Microprocesador">
-  				</div>
-  				<div class="input-group-text">
-    				<input name="tipoProducto" class="form-check-input mx-1" type="radio" value="Motherboard">
-  					<input type="text" class="form-control" placeholder="Motherboard">
-  				</div>
-  				<div class="input-group-text">
-    				<input name="tipoProducto" class="form-check-input mx-1" type="radio" value="MemoriaRam">
-  					<input type="text" class="form-control" placeholder="Memoria Ram">
-  				</div>
-  				<div class="input-group-text">
-    				<input name="tipoProducto" class="form-check-input mx-1" type="radio" value="DiscoRigido">
-  					<input type="text" class="form-control" placeholder="Disco rígido">
-  				</div>
-  				<div class="input-group-text">
-    				<input name="tipoProducto" class="form-check-input mx-1" type="radio" value="PlacaVideo">
-  					<input type="text" class="form-control" placeholder="Placa de video">
-  				</div>
-  				<div class="input-group-text">
-    				<input name="tipoProducto" class="form-check-input mx-1" type="radio" value="Gabinete">
-  					<input type="text" class="form-control" placeholder="Gabinete">
-  				</div>
-  				<div class="input-group-text">
-    				<input name="tipoProducto" class="form-check-input mx-1" type="radio" value="Fuente">
-  					<input type="text" class="form-control" placeholder="Fuente">
-  				</div>
-  				<div class="input-group-text">
-    				<input name="tipoProducto" class="form-check-input mx-1" type="radio" value="Cooler">
-  					<input type="text" class="form-control" placeholder="Cooler">
-  				</div>
+		  	<div class="btn-group-vertical" role="group" aria-label="Basic checkbox toggle button group">
+		  		<label class="label px-1">Seleccione una categoria</label>
+		  		
+			 	<input name="tipoProducto" type="radio" class="btn-check" id="btncheck1" autocomplete="off" value="Microprocesador">
+				<label class="btn btn-outline-primary" for="btncheck1">Microprocesador</label>
+				
+				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck2" autocomplete="off" value="Motherboard">
+				<label class="btn btn-outline-primary" for="btncheck2">Motherboard</label>
+				
+				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck3" autocomplete="off" value="MemoriaRam">
+				<label class="btn btn-outline-primary" for="btncheck3">Memoria Ram</label>
+				
+				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck4" autocomplete="off" value="DiscoRigido">
+				<label class="btn btn-outline-primary" for="btncheck4">Disco rígido</label>
+				
+				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck5" autocomplete="off" value="PlacaVideo">
+				<label class="btn btn-outline-primary" for="btncheck5">Placa de video</label>
+				
+				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck6" autocomplete="off" value="Gabinete">
+				<label class="btn btn-outline-primary" for="btncheck6">Gabinete</label>
+				
+				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck7" autocomplete="off" value="Fuente">
+				<label class="btn btn-outline-primary" for="btncheck7">Fuente</label>
+				
+				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck8" autocomplete="off" value="Cooler">
+				<label class="btn btn-outline-primary" for="btncheck8">Cooler</label>
 			</div>
 	  		<button type="submit" class="btn btn-primary">Guardar</button>
 		</form>
