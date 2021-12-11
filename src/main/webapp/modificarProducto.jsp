@@ -43,13 +43,13 @@
 				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck2" autocomplete="off" value="Motherboard">
 				<label class="btn btn-outline-primary" for="btncheck2">Motherboard</label>
 				
-				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck3" autocomplete="off" value="MemoriaRam">
+				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck3" autocomplete="off" value="Memoria ram">
 				<label class="btn btn-outline-primary" for="btncheck3">Memoria Ram</label>
 				
-				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck4" autocomplete="off" value="DiscoRigido">
+				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck4" autocomplete="off" value="Disco rigido">
 				<label class="btn btn-outline-primary" for="btncheck4">Disco rígido</label>
 				
-				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck5" autocomplete="off" value="PlacaVideo">
+				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck5" autocomplete="off" value="Placa de Video">
 				<label class="btn btn-outline-primary" for="btncheck5">Placa de video</label>
 				
 				<input name="tipoProducto" type="radio" class="btn-check" id="btncheck6" autocomplete="off" value="Gabinete">
