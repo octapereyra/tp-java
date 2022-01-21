@@ -1,21 +1,21 @@
 package entities;
 
 public class Venta_Producto {
-	private int id_venta;
-	private int id_producto;
+	private Venta venta;
+	private Producto prod;
 	private int cantidad;
 	
-	public int getId_venta() {
-		return id_venta;
+	public Venta getVenta() {
+		return venta;
 	}
-	public void setId_venta(int id_venta) {
-		this.id_venta = id_venta;
+	public void setVenta(Venta venta) {
+		this.venta = venta;
 	}
-	public int getId_producto() {
-		return id_producto;
+	public Producto getProd() {
+		return prod;
 	}
-	public void setId_producto(int id_producto) {
-		this.id_producto = id_producto;
+	public void setProd(Producto prod) {
+		this.prod = prod;
 	}
 	public int getCantidad() {
 		return cantidad;
