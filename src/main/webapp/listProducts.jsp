@@ -25,8 +25,11 @@
 	  			<button class="btn btn-outline-secondary" name="button" value="menor" type="submit">Menor que</button>
 	  			<input type="text" name="precio" class="form-control me-1" placeholder="Ingrese precio..." aria-label="Example text with two button addons">
 				<div class="list-group list-group-horizontal">
-  					<a href="ABMCproducto?accion=nuevo" class="list-group-item list-group-item-action" aria-current="true">Nuevo</a>
-  				</div>			
+  					<a href="ABMCproducto?accion=nuevo" class="list-group-item list-group-item-action" aria-current="true">Nuevo Producto</a>  					
+  				</div>
+  				<div class="list-group list-group-horizontal">
+  					<a href="ABMCcategoria?accion=nuevo" class="list-group-item list-group-item-action" aria-current="true">Nueva Categoria</a>  					
+  				</div>				
 			</div>	
 		</form>
 	</div>

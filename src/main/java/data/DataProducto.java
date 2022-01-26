@@ -28,13 +28,13 @@ public class DataProducto {
 			if(rs!=null) {
 				while(rs.next()) {
 					Producto p= new Producto();
-					p.setId(rs.getInt(1));
-					p.setDescripcion(rs.getString(2));
-					p.setPrecio(rs.getDouble(3));
-					p.setStock(rs.getInt(4));
+					p.setId(rs.getInt("id_producto"));
+					p.setDescripcion(rs.getString("descripcion"));
+					p.setPrecio(rs.getDouble("precio"));
+					p.setStock(rs.getInt("stock"));
 					p.setCategoria(new Categoria());
-					p.getCategoria().setId_categoria(rs.getInt(5));;
-					p.getCategoria().setDenominacion(rs.getString(6));
+					p.getCategoria().setId_categoria(rs.getInt("id_categoria"));;
+					p.getCategoria().setDenominacion(rs.getString("denominacion"));
 					productos.add(p);
 				}
 			}
@@ -72,14 +72,13 @@ public class DataProducto {
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				p= new Producto();
-				p.setId(rs.getInt(1));
-				p.setDescripcion(rs.getString(2));
-				p.setPrecio(rs.getDouble(3));
-				p.setStock(rs.getInt(4));
+				p.setId(rs.getInt("id_producto"));
+				p.setDescripcion(rs.getString("descripcion"));
+				p.setPrecio(rs.getDouble("precio"));
+				p.setStock(rs.getInt("stock"));
 				p.setCategoria(new Categoria());
-				p.getCategoria().setId_categoria(rs.getInt(5));;
-				p.getCategoria().setDenominacion(rs.getString(6));
-				
+				p.getCategoria().setId_categoria(rs.getInt("id_categoria"));;
+				p.getCategoria().setDenominacion(rs.getString("denominacion"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,11 +119,11 @@ public class DataProducto {
 				while(rs.next()) {
 				Producto pr= new Producto();
 				Categoria cat = new Categoria();
-				pr.setId(rs.getInt(1));
-				pr.setDescripcion(rs.getString(2));
-				pr.setPrecio(rs.getDouble(3));
-				pr.setStock(rs.getInt(4));
-				cat.setDenominacion(rs.getString(5));
+				pr.setId(rs.getInt("id_producto"));
+				pr.setDescripcion(rs.getString(("descripcion")));
+				pr.setPrecio(rs.getDouble("precio"));
+				pr.setStock(rs.getInt("stock"));
+				cat.setDenominacion(rs.getString("denominacion"));
 				
 				pr.setCategoria(cat);
 				
@@ -204,7 +203,7 @@ public class DataProducto {
 			
 			keyResultSet=stmt.getGeneratedKeys();
             if(keyResultSet!=null && keyResultSet.next()){
-                p.setId(keyResultSet.getInt(1));
+                p.setId(keyResultSet.getInt("id_producto"));
             }
 
 			
