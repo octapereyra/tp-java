@@ -6,20 +6,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import entities.Usuario;
-import logic.LogicUsuario;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class MainPage
  */
-@WebServlet({ "/Login", "/login" })
-public class Login extends HttpServlet {
+@WebServlet({ "/MainPage", "/mainPage", "/mainpage" })
+public class MainPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public MainPage() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,9 +27,15 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
-		doPost(request, response);
+		String accion = request.getParameter("accion");
+		
+		if(accion.equals("logout")) {
+		CloseSession(request);
+		request.setAttribute("msg", "Sesión cerrada con éxito");
+		request.getRequestDispatcher("./index.jsp").forward(request, response);
+		}
+		
 	}
 
 	/**
@@ -38,25 +43,14 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Usuario us = new Usuario();
-		LogicUsuario lu = new LogicUsuario();
-		
-		us.setNombreUsuario(request.getParameter("user"));
-		us.setClave(request.getParameter("pass"));
-		
-		us= lu.validate(us);
-		
-		if(us != null) {
-	        request.getSession().setAttribute("user", us);
-	        //response.getWriter().append("Bienvenido ").append(us.getNombre()).append(us.getApellido());
-	        request.getRequestDispatcher("WEB-INF/mainPage.jsp").forward(request, response);
-	        }
-	        else {
-	        	request.setAttribute("msg", "Usuario y/o contraseña inexistente");
-	        	request.getRequestDispatcher("index.jsp").forward(request, response);;
-	        }
+		doGet(request, response);
+	}
 	
-		
+	private void CloseSession(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+		    session.invalidate();
+		}
 	}
 
 }

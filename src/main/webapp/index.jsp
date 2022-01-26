@@ -34,6 +34,13 @@
                         <div class="col-12">
                             <button type="submit" class="btn btn-dark float-end">Iniciar Sesión</button>
                         </div>
+                        <% 
+                        String msg = (String)request.getAttribute("msg");
+                        if(!(msg==null)){ %>
+                        <div class="col-12 text-danger">
+                        	<label><%=request.getAttribute("msg") %></label>
+                        </div>
+                        <%} %>
 					</form>
 					<hr class="mt-4">
                     <div class="col-12">

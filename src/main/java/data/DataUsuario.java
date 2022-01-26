@@ -23,7 +23,7 @@ public class DataUsuario {
 					u.setId_usuario(rs.getInt("id_usuario"));
 					u.setNombre(rs.getString("nombre"));
 					u.setApellido(rs.getString("apellido"));
-					u.setNombreUsuario(rs.getString("apellido"));
+					u.setNombreUsuario(rs.getString("nombreUsuario"));
 					u.setEmail(rs.getString("email"));
 					u.setTipoUsuario(new TipoUsuario());
 					u.getTipoUsuario().setId_TipoUsuario(rs.getInt("id_tipoUsuario"));
@@ -66,7 +66,7 @@ public class DataUsuario {
 				u.setId_usuario(rs.getInt("id_usuario"));
 				u.setNombre(rs.getString("nombre"));
 				u.setApellido(rs.getString("apellido"));
-				u.setNombreUsuario(rs.getString("apellido"));
+				u.setNombreUsuario(rs.getString("nombreUsuario"));
 				u.setEmail(rs.getString("email"));
 				u.setTipoUsuario(new TipoUsuario());
 				u.getTipoUsuario().setId_TipoUsuario(rs.getInt("id_tipoUsuario"));
@@ -75,6 +75,7 @@ public class DataUsuario {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			u = null;
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}

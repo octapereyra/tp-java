@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.LinkedList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,14 +49,32 @@ public class Register extends HttpServlet {
 		user.setNombreUsuario(request.getParameter("username"));
 		user.setEmail(request.getParameter("mail"));
 		user.setClave(request.getParameter("password"));
-		tu.setId_TipoUsuario(2);
+		tu.setId_TipoUsuario(2); //se registra como usuario normal
 		user.setTipoUsuario(tu);
 		
 		//validar que no exista el mismo username
+		if(checkUsername(user)) {
+			//ya existe
+			response.getWriter().append("Nombre de usuario ya existente. Por favor elija uno distinto");
+		}
+		else {
+			//valido
+			lu.add(user);
+			response.sendRedirect("index.jsp");
+		}
+	}
+	
+	private boolean checkUsername(Usuario us) {
+		LogicUsuario lu = new LogicUsuario();
+		LinkedList<Usuario> users = lu.getAll();
+		Boolean check = false;
 		
-		
-		lu.add(user);
-		response.sendRedirect("index.jsp");
+		for(Usuario u : users) {
+			if(u.getNombreUsuario().equals(us.getNombreUsuario())) {
+				check = true;
+			}
+		}
+		return check;
 	}
 
 }
