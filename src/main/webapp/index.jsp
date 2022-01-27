@@ -35,8 +35,7 @@
                             <button type="submit" class="btn btn-dark float-end">Iniciar Sesión</button>
                         </div>
                         <% 
-                        String msg = (String)request.getAttribute("msg");
-                        if(!(msg==null)){ %>
+                        if(request.getAttribute("msg") != null){ %>
                         <div class="col-12 text-danger">
                         	<label><%=request.getAttribute("msg") %></label>
                         </div>

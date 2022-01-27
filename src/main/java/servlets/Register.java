@@ -55,7 +55,8 @@ public class Register extends HttpServlet {
 		//validar que no exista el mismo username
 		if(checkUsername(user)) {
 			//ya existe
-			response.getWriter().append("Nombre de usuario ya existente. Por favor elija uno distinto");
+			request.setAttribute("msg", "Nombre de usuario ya existente. Por favor elija uno distinto");
+			request.getRequestDispatcher("register.jsp").forward(request, response);
 		}
 		else {
 			//valido

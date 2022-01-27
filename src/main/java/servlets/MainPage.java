@@ -35,6 +35,9 @@ public class MainPage extends HttpServlet {
 		request.setAttribute("msg", "Sesión cerrada con éxito");
 		request.getRequestDispatcher("./index.jsp").forward(request, response);
 		}
+		else if(accion.equals("home")) {
+			request.getRequestDispatcher("WEB-INF/mainPage.jsp").forward(request, response);
+		}
 		
 	}
 
@@ -43,7 +46,7 @@ public class MainPage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.getRequestDispatcher("WEB-INF/mainPage.jsp").forward(request, response);
 	}
 	
 	private void CloseSession(HttpServletRequest request) {

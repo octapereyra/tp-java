@@ -44,7 +44,7 @@
 	     	<input type="password" name="password" class="form-control" id="inputPassword" required>
      	</div>
 	  </div>
-	  <div class="col-12-mt-5">
+	  <div class="col-12 mt-3">
 	    <div class="form-check">
 	      <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
 	      <label class="form-check-label" for="invalidCheck2">
@@ -52,9 +52,14 @@
 	      </label>
 	    </div>
 	  </div>
-	  <div class="col-12-mt-5">
+	  <div class="col-12 mt-3">
 	    <button class="btn btn-primary" type="submit">Registrarse</button>
 	  </div>
+	  <%if(request.getAttribute("msg") != null){ %>
+	  <div class="col-12 mt-3 text-danger">
+	  	<label><%=request.getAttribute("msg") %>></label>
+	  </div>
+	  <%} %>
 	</form>
 	</div>
 
