@@ -155,4 +155,38 @@ public class DataCategoria {
 		}
 		
 	}
+
+	public Categoria getOne(int id_categoria) {
+		
+		Categoria c = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(
+					"SELECT c.id_categoria,c.denominacion "
+							+ "FROM categoria c "
+							+ "where c.id_categoria=?;"
+					);
+			stmt.setInt(1, id_categoria);
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				c= new Categoria();
+				c.setId_categoria(rs.getInt("id_categoria"));
+				c.setDenominacion(rs.getString("denominacion"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return c;
+	}
 }

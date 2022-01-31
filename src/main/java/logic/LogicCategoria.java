@@ -32,4 +32,8 @@ private DataCategoria dc;
 	public Categoria getByDenominacion(String denominacion) {
 		return dc.getByDenominacion(denominacion);
 	}
+
+	public Categoria getOne(int id_categoria) {
+		return dc.getOne(id_categoria);
+	}
 }
