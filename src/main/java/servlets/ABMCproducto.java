@@ -53,7 +53,7 @@ public class ABMCproducto extends HttpServlet {
 			Categoria cat;
 			
 			pr.setDescripcion(request.getParameter("descripcion"));
-			pr.setPrecio(Double.parseDouble(request.getParameter("precio")));
+			pr.setPrecio(Double.parseDouble(request.getParameter("precio"))); 
 			pr.setStock(Integer.parseInt(request.getParameter("stock")));
 			cat = lc.getByDenominacion(request.getParameter("tipoProducto"));
 			pr.setCategoria(cat);
@@ -74,7 +74,7 @@ public class ABMCproducto extends HttpServlet {
 			Producto pr = new Producto();
 			Categoria cat;
 			
-			pr.setId(Integer.parseInt(request.getParameter("id")));
+			 
 			pr.setDescripcion(request.getParameter("descripcion"));
 			pr.setPrecio(Double.parseDouble(request.getParameter("precio")));
 			pr.setStock(Integer.parseInt(request.getParameter("stock")));

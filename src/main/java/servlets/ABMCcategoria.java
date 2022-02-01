@@ -35,6 +35,8 @@ public class ABMCcategoria extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String accion;
+		LogicCategoria lc = new LogicCategoria();
+		LinkedList<Categoria> listaCategorias;
 		RequestDispatcher distpacher = null;
 		
 		accion = request.getParameter("accion");
@@ -45,14 +47,48 @@ public class ABMCcategoria extends HttpServlet {
 
 			
 	} else if ("insert".equals(accion)) {
-		LogicCategoria lc = new LogicCategoria();
+
 		Categoria cat= new Categoria();
 		
 		cat.setDenominacion(request.getParameter("denominacion"));
 		lc.add(cat);
 		distpacher = request.getRequestDispatcher("listProducts.jsp");
+		listaCategorias = lc.getAll();
+		request.setAttribute("listaCat", listaCategorias);
 		
+
+	} else if("modificar".equals(accion)) {
+		
+		Categoria cat= new Categoria();
+		
+		int id = Integer.parseInt(request.getParameter("id"));
+		cat = lc.getOne(id);
+		request.setAttribute("categoria", cat);
+		distpacher = request.getRequestDispatcher("modificarCategoria.jsp");
+		
+	}else if("update".equals(accion)) {
+		
+		Categoria cat= new Categoria();
+		cat.setId_categoria(Integer.parseInt(request.getParameter("id")));
+		cat.setDenominacion(request.getParameter("denominacion"));
+		lc.update(cat);
+		
+		
+		listaCategorias = lc.getAll();
+		request.setAttribute("listaCat", listaCategorias);
+		distpacher = request.getRequestDispatcher("listProducts.jsp");
+	}else if("eliminar".equals(accion)) {
+		Categoria cat= new Categoria();
+		
+		cat.setId_categoria(Integer.parseInt(request.getParameter("id")));
+		
+		lc.delete(cat);	
+		
+		listaCategorias = lc.getAll();
+		request.setAttribute("listaCat", listaCategorias);
+		distpacher = request.getRequestDispatcher("Categorias.jsp");
 	}
+		
 		
 		distpacher.forward(request, response);
 		}

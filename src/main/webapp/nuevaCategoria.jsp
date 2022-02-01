@@ -12,7 +12,7 @@
 		    	<label class="form-label">Denominacion</label>
 		    	<input id="denominacion" name="denominacion" type="text" class="form-control">
 		  	</div>
-		 <button type="submit" class="btn btn-primary">Guardar</button>
+		 <a href="./Categorias.jsp" class="list-group-item list-group-item-action" aria-current="true">Guardar</a>
 		</form>
 		</div>
 </body>

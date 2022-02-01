@@ -77,7 +77,7 @@ public class DataProducto {
 				p.setPrecio(rs.getDouble("precio"));
 				p.setStock(rs.getInt("stock"));
 				p.setCategoria(new Categoria());
-				p.getCategoria().setId_categoria(rs.getInt("id_categoria"));;
+				p.getCategoria().setId_categoria(rs.getInt("id_categoria"));
 				p.getCategoria().setDenominacion(rs.getString("denominacion"));
 			}
 		} catch (SQLException e) {
