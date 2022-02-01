@@ -1,6 +1,7 @@
 <%@page import="entities.Producto"%>
 <%@page import="entities.Categoria" %>
 <%@page import="java.util.LinkedList"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="logic.LogicProducto"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -11,10 +12,16 @@
 	<meta charset="ISO-8859-1">
 	<title>Productos</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
+	<%LogicProducto lp = new LogicProducto();%>
 	
+	<%LinkedList<Producto> list = (LinkedList<Producto>)request.getAttribute("lista");%>
+	<%if(list == null) {list = lp.getAll();}%>
+	
+	<%ArrayList<int[]> listaCarrito = (ArrayList<int[]>)request.getSession().getAttribute("listaCarrito");%>
+	<%if(listaCarrito == null) {listaCarrito = new ArrayList<>();}%>
+	
+	<%int cont = listaCarrito.size();%>
 </head>
 <body>
 <!--CABECERA-->
@@ -44,7 +51,7 @@
     			</ul>
     			<ul class="navbar-nav me-4 mb-2 mb-lg-end">
     				<li class="nav-item">
-    					<a class="nav-link" aria-current="page" href="#">Mi carrito</a>
+    					<a class="nav-link" aria-current="page" href="carrito?accion=carrito">(<label><%=cont%></label>)Mi carrito</a>
     				</li>
     			</ul>
     			<form class="d-flex">
@@ -57,9 +64,7 @@
 	</nav>
 	<!--CABECERA-->
 	
-	<%LogicProducto lp = new LogicProducto();%>
-	<%LinkedList<Producto> list = (LinkedList<Producto>)request.getAttribute("lista");%>
-	<%if(list == null) {list = lp.getAll();}%>
+	
 	<div class="container mt-3">
 		<h3>Búsqueda por precio</h3>
 		<form method="get" action="listProducts">
@@ -78,32 +83,34 @@
 	</div>
 	<div class="container">
 			<table class="table table-striped">
-		  <thead>
-		    <tr>
-<!-- 		      <th scope="col">ID</th> -->
-		      <th scope="col">Categoria</th>
-		      <th scope="col">Descripción</th>
-		      <th scope="col">Precio</th>
-<!-- 		      <th scope="col">Stock</th> -->
-		    </tr>
-		  </thead>
-		  <tbody>
-		  <% for (Producto pr : list) { %>
-		  <% Categoria cat = new Categoria(); %>
-		  <% cat = pr.getCategoria(); %>
-		    <tr>
-		      <td><%=cat.getDenominacion() %></td>
-		      <td><%=pr.getDescripcion() %></td>
-		      <td><%=pr.getPrecio() %></td>
-		      <%-- 		      <td><%=pr.getStock() %></td> --%>
-			  <td><a class="btn" href="ABMCproducto?accion=modificar&id=<%=pr.getId() %>">Modificar</a></td>
-			  <td><a class="btn" href="ABMCproducto?accion=eliminar&id=<%=pr.getId() %>">Eliminar</a></td>
-			  
-		    </tr>
-		    <% } %>
-		  </tbody>
-		</table>	
+			  <thead>
+			    <tr>
+	<!-- 		      <th scope="col">ID</th> -->
+			      <th scope="col">Categoria</th>
+			      <th scope="col">Descripción</th>
+			      <th scope="col">Precio</th>
+	<!-- 		      <th scope="col">Stock</th> -->
+			    </tr>
+			  </thead>
+			  <tbody>
+			  <% for (Producto pr : list) { %>
+			  <% Categoria cat = new Categoria(); %>
+			  <% cat = pr.getCategoria(); %>
+			    <tr>
+			      <td><%=cat.getDenominacion() %></td>
+			      <td><%=pr.getDescripcion() %></td>
+			      <td><%=pr.getPrecio() %></td>
+			      <%-- 		      <td><%=pr.getStock() %></td> --%>
+				  <td><a class="btn" href="ABMCproducto?accion=modificar&id=<%=pr.getId() %>">Modificar</a></td>
+				  <td><a class="btn" href="ABMCproducto?accion=eliminar&id=<%=pr.getId() %>">Eliminar</a></td>
+				  <td><a class="btn btn-dark" href="Carrito?accion=agregarCarrito&id=<%=pr.getId() %>">Agregar al carrito</a></td>
+			    </tr>
+			  <% } %>
+			  </tbody>
+			</table>	
 	</div>
 	
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

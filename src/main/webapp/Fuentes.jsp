@@ -14,7 +14,7 @@
 <body>
 	<%	
 	DataProducto dp = new DataProducto();
-	LinkedList<Producto> list = dp.getByCategoria("Fuente");
+	LinkedList<Producto> list = dp.getByCategoria("Fuente de alimentación");
 	
 	%>
 	<div class="container">

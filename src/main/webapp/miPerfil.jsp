@@ -42,7 +42,7 @@
     			</ul>
     			<ul class="navbar-nav me-4 mb-2 mb-lg-end">
     				<li class="nav-item">
-    					<a class="nav-link" aria-current="page" href="#">Mi carrito</a>
+    					<a class="nav-link" aria-current="page" href="Carro_de_compras.jsp">Mi carrito</a>
     				</li>
     			</ul>
     			<form class="d-flex">

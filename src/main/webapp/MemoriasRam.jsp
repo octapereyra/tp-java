@@ -14,7 +14,7 @@
 <body>
 	<%	
 	DataProducto dp = new DataProducto();
-	LinkedList<Producto> list = dp.getByCategoria("Placa de video");
+	LinkedList<Producto> list = dp.getByCategoria("Memoria RAM");
 	
 	%>
 	<div class="container">
