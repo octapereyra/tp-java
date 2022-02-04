@@ -11,8 +11,8 @@
 		    <div class="mb-3">
 		    	<label class="form-label">Denominacion</label>
 		    	<input id="denominacion" name="denominacion" type="text" class="form-control">
+		    	<button class="btn btn-primary" type="submit">Guardar</button>
 		  	</div>
-		 <a href="./Categorias.jsp" class="list-group-item list-group-item-action" aria-current="true">Guardar</a>
 		</form>
 		</div>
 </body>

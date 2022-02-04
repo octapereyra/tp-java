@@ -62,7 +62,7 @@ public class DataCategoria {
 			if(rs!=null) {
 				while(rs.next()) {
 					categoria.setId_categoria(rs.getInt("id_categoria"));
-					categoria.setDenominacion(rs.getString("denomincion"));
+					categoria.setDenominacion(rs.getString("denominacion"));
 
 				}
 			}
