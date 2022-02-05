@@ -31,9 +31,14 @@
 		  	<div class="btn-group-vertical" role="group" aria-label="Basic checkbox toggle button group">
 		  	<label class="label px-1">Seleccione una categoria</label>
 		  	
-		   <% for (Categoria cat : list) { %>
-		  	<input name="tipoProducto" type="radio" class="btn-check" id="btncheck1" autocomplete="off" value="<%=cat.getDenominacion()%>">
-				<label class="btn btn-outline-primary" for="btncheck1"><%=cat.getDenominacion()%></label>
+		   <% Integer i=0;
+		   	String id = null;
+		   for (Categoria cat : list) { 
+		   		i++;
+		   		id = "btncheck"+i;
+		   %>
+		  	<input name="tipoProducto" type="radio" class="btn-check" id=<%=id%> autocomplete="off" value="<%=cat.getDenominacion()%>">
+			<label class="btn btn-outline-primary" for=<%=id%>><%=cat.getDenominacion()%></label>
 				
 			<% }%>>
 
