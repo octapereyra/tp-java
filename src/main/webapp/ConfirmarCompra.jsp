@@ -1,6 +1,3 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="entities.Producto" %>
-<%@page import="logic.LogicProducto" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -8,23 +5,19 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Compras</title>
+	<title>Confirmar compra</title>
 	<link rel="stylesheet" href="Carrito_style.css">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+	integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
 	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	
-	<%ArrayList<int[]> listaCarrito = (ArrayList<int[]>)request.getSession().getAttribute("listaCarrito");%>
-	<%if(listaCarrito == null) {listaCarrito = new ArrayList<>();};%>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
 	<%String total = (String)request.getAttribute("totalPagar"); %>
 	<%if(total==null) total="0.0";%>
-	
-	<%LogicProducto lp= new LogicProducto();%>
 </head>
-<body id="contenedor">
-	
-	<header id="cabecera">
+<body>
+	<header>
 		<!--CABECERA-->
 		<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 			<div class="container-fluid">
@@ -52,7 +45,7 @@
 	    			</ul>
 	    			<ul class="navbar-nav me-4 mb-2 mb-lg-end">
 	    				<li class="nav-item">
-	    					<a class="nav-link" aria-current="page" href="#">Mi carrito</a>
+	    					<a class="nav-link" aria-current="page" href="Carro_de_compras.jsp">Mi carrito</a>
 	    				</li>
 	    			</ul>
 	    			<form class="d-flex">
@@ -67,48 +60,36 @@
 	</header>
 	<div id=productos class="container mt-4">
 		<div class="row">
-			<div class="col-sm-8">
-				<table class="table table-striped">
-			  <thead>
-			    <tr>
-	<!-- 		  <th scope="col">ID</th> -->
-			      <th scope="col">Categoria</th>
-			      <th scope="col">Descripción</th>
-			      <th scope="col">Cantidad</th>
-			      <th scope="col">Precio</th>
-	<!-- 		  <th scope="col">Stock</th> -->
-			    </tr>
-			  </thead>
-			  <tbody>
-			  
-			  <% for (int i=0; i<listaCarrito.size(); i++) { %>
-			  <% Producto p = lp.getOne(listaCarrito.get(i)[0]);%>
-			    <tr>
-			      <td><%=p.getCategoria().getDenominacion() %></td>	
-			      <td><%=p.getDescripcion() %></td>
-			      <td><%=listaCarrito.get(i)[1] %></td>
-			      <td><%=p.getPrecio() %></td>
-			    </tr>
-			    <% } %>
-			  </tbody>
-			</table>
-			</div>
-			<div class="col-sm-4">
+			<div class="col-sm">
 				<div class="card">
 					<div class="card-header">
-						<h3>Generar Compra</h3>
+						<h3>Complete los datos de la compra</h3>
 					</div>
 					<div class="card-body">
+						<div class="dropdown mb-4">
+  							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    						Elegir una zona
+  							</button>
+  							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							    <li><a class="dropdown-item" href="#">Distrino norte</a></li>
+							    <li><a class="dropdown-item" href="#">Distrino noroeste</a></li>
+							    <li><a class="dropdown-item" href="#">Distrino centro</a></li>
+							    <li><a class="dropdown-item" href="#">Distrino oeste</a></li>
+							    <li><a class="dropdown-item" href="#">Distrino sudoeste</a></li>
+							    <li><a class="dropdown-item" href="#">Distrino sur</a></li>
+  							</ul>
+						</div>
 						<label>Total a pagar:</label>
-						<input type="text" value=<%=total %> class="form-control">
+						<input type="text"  value=<%=total %> class="form-control">
 					</div>
 					<div class="card-footer">
-						<a class="btn btn-danger btn-block" href="Carrito?accion=comprar">Comprar</a>
-						<a class="btn btn-danger btn-block" href="Carrito?accion=limpiar">Limpiar carrito</a>
+						<a class="btn btn-danger btn-block" href="#">Confirmar compra</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</body>
+</html>
 </body>
 </html>

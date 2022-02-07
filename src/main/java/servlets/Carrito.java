@@ -76,7 +76,6 @@ public class Carrito extends HttpServlet {
 		}else if("carrito".equals(accion)) {
 			
 			totalPagar=0.0;
-			listaCarrito = (ArrayList<int[]>)request.getSession().getAttribute("listaCarrito");
 			Producto p ;
 			
 			for(int i=0; i< listaCarrito.size(); i++) {
@@ -91,6 +90,26 @@ public class Carrito extends HttpServlet {
 		}else if("limpiar".equals(accion)) {
 			listaCarrito.clear();
 			distpacher = request.getRequestDispatcher("Carro_de_compras.jsp");
+		}else if("comprar".equals(accion)) {
+			
+				if(listaCarrito.size() == 0) {
+					
+					listaProductos = lp.getAll();
+					request.setAttribute("lista", listaProductos);
+					distpacher = request.getRequestDispatcher("listProducts.jsp");
+				}else {
+					
+					totalPagar=0.0;
+					Producto p ;
+					
+					for(int i=0; i< listaCarrito.size(); i++) {
+						int id = listaCarrito.get(i)[0];
+						p =  lp.getOne(id);
+						totalPagar = totalPagar + (p.getPrecio() * listaCarrito.get(i)[1]);	
+					}
+					request.setAttribute("totalPagar",  String.valueOf(totalPagar));
+					distpacher = request.getRequestDispatcher("ConfirmarCompra.jsp");
+				}	
 		}else {
 			listaProductos = lp.getAll();
 			request.setAttribute("lista", listaProductos);
