@@ -4,6 +4,9 @@ import data.DataVenta;
 import entities.Producto;
 import entities.Venta;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class LogicVenta {
 	
 	private DataVenta dv;
@@ -12,9 +15,9 @@ public class LogicVenta {
 		dv = new DataVenta();
 	}
 	
-	public void confirmarVenta(Venta v, Producto p, int cantidad)  {
+	public void confirmarVenta(Venta v, ArrayList<int[]> listaCarrito)  {
 		
-		dv.confirmarVenta(v, p, cantidad);
+		dv.confirmarVenta(v, listaCarrito);
 	}
 	
 }

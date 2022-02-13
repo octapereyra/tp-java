@@ -1,11 +1,16 @@
 package servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import entities.Producto;
+import entities.Usuario;
 import logic.LogicProducto;
+import logic.LogicVenta;
+import entities.Venta;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

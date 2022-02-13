@@ -1,15 +1,16 @@
 package entities;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Venta {
 	private int id_venta;
 	private int id_usuario;
 	private int cod_postal;
 	private int id_flete;
-	private Date fechaVenta;
-	private Time horaVenta;
+	private LocalDate fechaVenta;
+	private LocalTime horaVenta;
+	private String estado;
 	
 	public int getId_venta() {
 		return id_venta;
@@ -35,19 +36,23 @@ public class Venta {
 	public void setId_flete(int id_flete) {
 		this.id_flete = id_flete;
 	}
-	public Date getFechaVenta() {
+	public LocalDate getFechaVenta() {
 		return fechaVenta;
 	}
-	public void setFechaVenta(Date fechaVenta) {
+	public void setFechaVenta(LocalDate fechaVenta) {
 		this.fechaVenta = fechaVenta;
 	}
-	public Time getHoraVenta() {
+	public LocalTime getHoraVenta() {
 		return horaVenta;
 	}
-	public void setHoraVenta(Time horaVenta) {
+	public void setHoraVenta(LocalTime horaVenta) {
 		this.horaVenta = horaVenta;
 	}
-	
-	
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 	
 }

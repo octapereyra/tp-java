@@ -1,3 +1,6 @@
+<%@page import="entities.Localidad" %>
+<%@page import="logic.LogicLocalidad" %>
+<%@page import="java.util.LinkedList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -15,6 +18,9 @@
 	
 	<%String total = (String)request.getAttribute("totalPagar"); %>
 	<%if(total==null) total="0.0";%>
+	
+	<%LogicLocalidad logicloc= new LogicLocalidad();%>
+	<%LinkedList<Localidad> list = logicloc.getAll();%>
 </head>
 <body>
 	<header>
@@ -61,35 +67,45 @@
 	<div id=productos class="container mt-4">
 		<div class="row">
 			<div class="col-sm">
-				<div class="card">
-					<div class="card-header">
-						<h3>Complete los datos de la compra</h3>
-					</div>
-					<div class="card-body">
-						<div class="dropdown mb-4">
-  							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-    						Elegir una zona
-  							</button>
-  							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							    <li><a class="dropdown-item" href="#">Distrino norte</a></li>
-							    <li><a class="dropdown-item" href="#">Distrino noroeste</a></li>
-							    <li><a class="dropdown-item" href="#">Distrino centro</a></li>
-							    <li><a class="dropdown-item" href="#">Distrino oeste</a></li>
-							    <li><a class="dropdown-item" href="#">Distrino sudoeste</a></li>
-							    <li><a class="dropdown-item" href="#">Distrino sur</a></li>
-  							</ul>
+				<form action="Compra" method="get">
+					<div class="card">
+						<div class="card-header">
+							<h3>Complete los datos de la compra</h3>
 						</div>
-						<label>Total a pagar:</label>
-						<input type="text"  value=<%=total %> class="form-control">
+							<div class="card-body">
+							
+							<label class="form-label">Ingrese la localidad</label>
+							<%for(Localidad loc : list){ %>
+								<div class="form-check">
+		  							<input class="form-check-input" type="radio" name="localidad" value=<%=loc.getCod_postal() %> id="flexRadioDefault1" checked>
+		  							<label class="form-check-label" for="flexRadioDefault1"><%=loc.getDescripcion() %></label>
+								</div>
+							<%}%>
+							
+							<label>Domicilio:</label>
+							<input name="domicilio" type="text" class="form-control" required>
+							
+							<label class="form-label">Elija una opcion</label>
+							<div class="form-check">
+		  							<input class="form-check-input" type="radio" name="opcion" value="envio" id="flexRadioDefault1" checked>
+		  							<label class="form-check-label" for="flexRadioDefault1">Envio</label>
+							</div>
+							<div class="form-check">
+		  							<input class="form-check-input" type="radio" name="opcion" value="local" id="flexRadioDefault1">
+		  							<label class="form-check-label" for="flexRadioDefault1">Retirar en el local</label>
+							</div>
+								
+								
+							<label>Total a pagar:</label>
+							<input name="total" type="text"  value=<%=total %> class="form-control" readonly>							
+						</div>
+						<div class="card-footer">
+							<button type="submit" class="btn btn-danger">Confirmar compra</button>
+						</div>
 					</div>
-					<div class="card-footer">
-						<a class="btn btn-danger btn-block" href="#">Confirmar compra</a>
-					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
-</body>
-</html>
 </body>
 </html>

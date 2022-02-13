@@ -45,6 +45,9 @@
     				<li class="nav-item">
     					<a class="nav-link" aria-current="page" href="./Carro_de_compras.jsp">Mi carrito</a>
     				</li>
+    				<li class="nav-item">
+    					<a class="nav-link" aria-current="page" href="./MisCompras.jsp">Mis Compras</a>
+    				</li>
     			</ul>
     			<form class="d-flex">
         			<input class="form-control me-2" type="search" placeholder="¿Qué estas buscando?" aria-label="Search"
