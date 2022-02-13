@@ -3,6 +3,7 @@ package logic;
 import java.util.LinkedList;
 
 import data.DataProducto;
+import entities.Categoria;
 import entities.Producto;
 import entities.Usuario;
 
@@ -25,6 +26,10 @@ public class LogicProducto {
 	
 	public LinkedList<Producto> getbyPrecio(Producto pro, String cond){
 		return dp.getByPrecio(pro, cond);
+	}
+	
+	public LinkedList<Producto> getbyCategoria(String catDen){
+		return dp.getByCategoria(catDen);
 	}
 	
 	public void add(Producto p) {

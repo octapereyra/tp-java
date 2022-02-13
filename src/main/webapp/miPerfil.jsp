@@ -83,31 +83,31 @@
 	  <div class="col-md-4">
 	    <label for="inputName" class="col-sm-2 col-form-label">Nombre</label>
 	    <div class="col-sm-10">
-      		<input type="text" name="nombre" class="form-control" value=<%=us.getNombre() %>>
+      		<input type="text" name="nombre" class="form-control" value=<%=us.getNombre() %> required>
     	</div>
 	  </div>
 	  <div class="col-md-4">
 	    <label for="inputApellido" class="col-sm-2 col-form-label">Apellido</label>
 	    <div class="col-sm-10">
-	    	<input type="text" name="apellido" class="form-control" value=<%=us.getApellido() %> >
+	    	<input type="text" name="apellido" class="form-control" value=<%=us.getApellido() %> required >
     	</div>
 	  </div>
 	  <div class="col-md-4">
 	    <label for="inputUser" class="form-label">Username</label>
 	    <div class="col-sm-10">
-	    	<input type="text" name="username" class="form-control" value=<%=us.getNombreUsuario() %>>
+	    	<input type="text" name="username" class="form-control" value=<%=us.getNombreUsuario() %> required>
     	</div>
 	  </div>
 	  <div class="col-md-6">
 	    <label for="inputMail" class="form-label">Email</label>
 	    <div class="col-sm-10">
-	    	<input type="email" name="mail" class="form-control" value=<%=us.getEmail() %>>
+	    	<input type="email" name="mail" class="form-control" value=<%=us.getEmail() %> required>
     	</div>
 	  </div>
 	  <div class="col-md-3">
 	    <label for="inputPassword" class="form-label">Contraseña</label>
 	    <div class="col-sm-10">
-	     	<input type="password" name="clave" class="form-control" value=<%=us.getClave() %>>
+	     	<input type="password" name="clave" class="form-control" value=<%=us.getClave() %> required>
      	</div>
 	  </div>
 	  <div class="col-12 mt-3">

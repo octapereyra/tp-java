@@ -52,7 +52,7 @@ public class ABMCcategoria extends HttpServlet {
 		
 		cat.setDenominacion(request.getParameter("denominacion"));
 		lc.add(cat);
-		distpacher = request.getRequestDispatcher("listProducts.jsp");
+		distpacher = request.getRequestDispatcher("Categorias.jsp");
 		listaCategorias = lc.getAll();
 		request.setAttribute("listaCat", listaCategorias);
 		

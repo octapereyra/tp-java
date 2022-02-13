@@ -1,5 +1,4 @@
-<%@page import="entities.Producto"%>
-<%@page import="entities.Categoria" %>
+<%@page import="entities.*"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="logic.LogicProducto"%>
@@ -22,6 +21,8 @@
 	<%if(listaCarrito == null) {listaCarrito = new ArrayList<>();}%>
 	
 	<%int cont = listaCarrito.size();%>
+	
+	<%Usuario us = (Usuario)session.getAttribute("user");%>
 </head>
 <body>
 <!--CABECERA-->
@@ -72,10 +73,12 @@
 	  			<button class="btn btn-outline-secondary" name="button" value="mayor" type="submit">Mayor que</button>
 	  			<button class="btn btn-outline-secondary" name="button" value="menor" type="submit">Menor que</button>
 	  			<input type="text" name="precio" class="form-control me-1" placeholder="Ingrese precio..." aria-label="Example text with two button addons">
+	  			<%if(us.getTipoUsuario().getId_TipoUsuario() == 1){ %>
 				<div class="list-group list-group-horizontal">
   					<a href="ABMCproducto?accion=nuevo" class="list-group-item list-group-item-action" aria-current="true">Nuevo Producto</a>  					 
     				<a href="./Categorias.jsp" class="list-group-item list-group-item-action" aria-current="true">Categoria</a>	
     			</div>	
+    			<%} %>
 		</form>
 	</div>
 	<div class="container">
@@ -98,8 +101,10 @@
 			      <td><%=pr.getDescripcion() %></td>
 			      <td><%=pr.getPrecio() %></td>
 			      <%-- 		      <td><%=pr.getStock() %></td> --%>
+			      <%if(us.getTipoUsuario().getId_TipoUsuario() == 1){ %>
 				  <td><a class="btn" href="ABMCproducto?accion=modificar&id=<%=pr.getId() %>">Modificar</a></td>
 				  <td><a class="btn" href="ABMCproducto?accion=eliminar&id=<%=pr.getId() %>">Eliminar</a></td>
+				  <%} %>
 				  <td><a class="btn btn-dark" href="Carrito?accion=agregarCarrito&id=<%=pr.getId() %>">Agregar al carrito</a></td>
 			    </tr>
 			  <% } %>

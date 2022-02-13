@@ -1,4 +1,6 @@
-<%@page import="entities.Usuario"%>
+<%@page import="entities.*"%>
+<%@page import="logic.*"%>
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,11 +11,13 @@
 	<title>Página principal</title>
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+	<!-- JavaScript Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
-	
-	<%
-	Usuario us = (Usuario)session.getAttribute("user");
-	%>
+	<%Usuario us = (Usuario)session.getAttribute("user");%>
+	<%LogicCategoria lc = new LogicCategoria(); %>
+	<%LinkedList<Categoria> listCat = lc.getAll(); %>
+
 </head>
 <body>
 	<!--CABECERA-->
@@ -66,22 +70,10 @@
         	<div class="col-auto px-0 bg-dark">
             	<div id="sidebar" class="collapse collapse-horizontal show ">
                 	<div id="sidebar-nav" class="list-group border-0 rounded-0 text-sm-start min-vh-100">
-                    	<a href="./microprocesadores.jsp" class="list-group-item  list-group-item-dark border-end-0 d-inline-block text-truncate" 
-                    	data-bs-parent="#sidebar"><span>Microprocesadores</span> </a>
-                    	<a href="./Motherboards.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
-                    	data-bs-parent="#sidebar"><span>Motherboards</span> </a>
-                    	<a href="./MemoriasRam.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
-                    	data-bs-parent="#sidebar"><span>Memoria Ram</span> </a>
-                    	<a href="./DiscosRigidos.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
-                    	data-bs-parent="#sidebar"><span>Discos Rígidos</span> </a>
-                    	<a href="./PlacasDeVideo.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
-                    	data-bs-parent="#sidebar"><span>Placas De Video</span> </a>
-                    	<a href="./Gabinetes.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
-                    	data-bs-parent="#sidebar"><span>Gabinetes</span> </a>
-                    	<a href="./Fuentes.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
-                    	data-bs-parent="#sidebar"><span>Fuentes</span> </a>
-                    	<a href="./Coolers.jsp" class="list-group-item list-group-item-dark border-end-0 d-inline-block text-truncate" 
-                    	data-bs-parent="#sidebar"><span>Coolers</span> </a>
+                	<%for (Categoria c : listCat){ %>
+                    	<a href="MainPage?accion=list&catDen=<%=c.getDenominacion() %>" class="list-group-item  list-group-item-dark border-end-0 d-inline-block text-truncate" 
+                    	data-bs-parent="#sidebar"><span><%=c.getDenominacion() %></span></a>
+                    <%} %>
                 	</div>
             	</div>
         	</div>
@@ -145,8 +137,5 @@
 	</div>
 
 	<!-- Barra lateral y main -->
-	
-	<!-- JavaScript Bundle with Popper -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
+	</body>
 </html>
