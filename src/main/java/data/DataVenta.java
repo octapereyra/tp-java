@@ -123,22 +123,23 @@ public class DataVenta {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Venta_Producto> ventasProductos = new LinkedList<>();
-		Venta_Producto vp = new Venta_Producto();
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().prepareStatement(
-					"SELECT v.fechaVenta, v.estado, p.descripcion, p.precio "
+					"SELECT v.id_venta, v.fechaVenta, v.estado, p.descripcion, p.precio "
 					+ "FROM venta_producto vp "
 					+ "inner join venta v on v.id_venta = vp.id_venta "
 					+ "inner join producto p on p.id_producto = vp.id_producto "
-					+ "where v.id_usuario=?;");
+					+ "where v.id_usuario=? and v.estado='pendiente';");
 			
 			stmt.setInt(1, id_usuario);
 			rs=stmt.executeQuery();
 			
 			if(rs!=null) {
 				while(rs.next()) {
+					Venta_Producto vp = new Venta_Producto();
 					vp.setVenta(new Venta());
+					vp.getVenta().setId_venta(rs.getInt("id_venta"));
 					vp.getVenta().setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
 					vp.getVenta().setEstado(rs.getString("estado"));
 					vp.setProd(new Producto());

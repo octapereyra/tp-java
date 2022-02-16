@@ -18,6 +18,7 @@
 	
 	<%LogicVenta lv = new LogicVenta(); %>
 	<% LinkedList<Venta_Producto> list = lv.getAllVentaProducto(us.getId_usuario()); %>
+	<% if(list == null) {list = new  LinkedList<Venta_Producto>();}; %>
 </head>
 <body>
 	<!--CABECERA-->
@@ -60,18 +61,17 @@
 		</nav>
 	<!--CABECERA-->
 	
-	<%int cont = 0; %>
-	<%for(Venta_Producto vp : list) { %>
-	<div class="card w-50">
-  		<div class="card-body">
+	
+	<%int cont = 1; %>
+	<%for (Venta_Producto vp : list) { %>
+	<div class="ps-3 card" style="border-bottom: 5px solid">
 		    <h5 class="card-title"> Compra <%=cont++%></h5>
 		    <p class="card-text">Fecha:<%= vp.getVenta().getFechaVenta()%></p>
 		    <p class="card-text">Estado:<%= vp.getVenta().getEstado()%></p>
 		    <p class="card-text">Producto:<%= vp.getProd().getDescripcion()%></p>
 		    <p class="card-text">Precio:<%= vp.getProd().getPrecio()%></p>
 		    <!--<p class="card-text">LLega el:</p>-->
-	  	</div>
-	</div>
+	 </div>
 	<%}%>
 
 </body>
