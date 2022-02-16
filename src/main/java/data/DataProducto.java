@@ -8,9 +8,6 @@ import java.util.LinkedList;
 
 import entities.Categoria;
 import entities.Producto;
-import entities.TipoUsuario;
-import entities.Usuario;
-
 
 public class DataProducto {
 	

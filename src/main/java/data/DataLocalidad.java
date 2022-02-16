@@ -6,10 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
-import entities.Categoria;
 import entities.Flete;
 import entities.Localidad;
-import entities.Producto;
 import entities.Zona;
 
 public class DataLocalidad {
@@ -61,21 +59,22 @@ public class DataLocalidad {
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
 					"SELECT l.cod_postal,l.descripcion,l.cod_zona,f.id_flete "
-					+ " from localidad l"
-					+ " inner join zona z on z.cod_zona = l.cod_zona"
-					+ " inner join flete f on f.id_flete = z.id_flete"
-					+ " where cod_postal=?;");
+							+ "FROM localidad l "
+							+ "INNER JOIN zona z on z.cod_zona = l.cod_zona "
+							+ "INNER JOIN flete f on f.id_flete = z.id_flete "
+							+ "WHERE cod_postal=?;"
+					);
 			stmt.setInt(1, cod_postal);
 			rs=stmt.executeQuery();
 			
 			if(rs!=null && rs.next()) {
 				l = new Localidad();
-				l.setCod_postal(rs.getInt("cod_postal"));
-				l.setDescripcion(rs.getString("descripcion"));
+				l.setCod_postal(rs.getInt(1));
+				l.setDescripcion(rs.getString(2));
 				l.setZona(new Zona());
-				l.getZona().setCod_zona(rs.getInt("cod_zona"));
+				l.getZona().setCod_zona(rs.getInt(3));
 				l.getZona().setFlete(new Flete());
-				l.getZona().getFlete().setId_flete(rs.getInt("id_flete"));
+				l.getZona().getFlete().setId_flete(rs.getInt(4));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

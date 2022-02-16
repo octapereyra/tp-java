@@ -1,11 +1,14 @@
 package data;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import entities.Venta;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import entities.Venta;
+import entities.Venta_Producto;
 import entities.Producto;
 import logic.LogicProducto;
 
@@ -16,20 +19,31 @@ public class DataVenta {
 		PreparedStatement insertarVenta = null;
 		PreparedStatement descontarStock = null;
 		PreparedStatement insertarVentaProducto = null;
+		ResultSet keyResultSet=null;
 		Producto p;
 		LogicProducto lp = new LogicProducto();
+		
 		try {
-			insertarVenta = DbConnector.getInstancia().getConn_Transaccion().prepareStatement(
-					"INSERT INTO venta (fechaVenta, horaVenta, id_usuario, cod_postal, id_flete) " + 
-					"VALUES (?, ?, ?, ?, ?); " 
+			DbConnector.getInstancia().getConn().setAutoCommit(false);
+			
+			insertarVenta = DbConnector.getInstancia().getConn().prepareStatement(
+					"INSERT INTO venta (fechaVenta, horaVenta, id_usuario, cod_postal, id_flete, estado) " + 
+					"VALUES (?, ?, ?, ?, ?, ?); ",
+					PreparedStatement.RETURN_GENERATED_KEYS 
 					);
 	
-		insertarVenta.setObject(1, v.getFechaVenta());
-		insertarVenta.setObject(2, v.getHoraVenta());
-		insertarVenta.setInt(3, v.getId_usuario());
-		insertarVenta.setInt(4, v.getCod_postal());
-		insertarVenta.setInt(5, v.getId_flete());
-		insertarVenta.executeUpdate();
+			insertarVenta.setObject(1, v.getFechaVenta());
+			insertarVenta.setObject(2, v.getHoraVenta());
+			insertarVenta.setInt(3, v.getId_usuario());
+			insertarVenta.setInt(4, v.getCod_postal());
+			insertarVenta.setInt(5, v.getId_flete());
+			insertarVenta.setString(6, v.getEstado());
+			insertarVenta.executeUpdate();
+		
+			keyResultSet=insertarVenta.getGeneratedKeys();
+	        if(keyResultSet!=null && keyResultSet.next()){
+	        	v.setId_venta(keyResultSet.getInt(1));
+	        }
 		
 		for(int i=0; i<listaCarrito.size(); i++) {
 			
@@ -37,17 +51,17 @@ public class DataVenta {
 				
 				p = lp.getOne(listaCarrito.get(i)[0]);
 				
-				insertarVentaProducto = DbConnector.getInstancia().getConn_Transaccion().prepareStatement(
+				insertarVentaProducto = DbConnector.getInstancia().getConn().prepareStatement(
 						"INSERT INTO venta_producto (id_producto, id_venta, cantidad) " + 
 						"VALUES (?, ?, ?); " 
 						);
 
 				insertarVentaProducto.setInt(1, p.getId());
 				insertarVentaProducto.setInt(2, v.getId_venta());
-				insertarVenta.setInt(3, 1);
-				insertarVenta.executeUpdate();
+				insertarVentaProducto.setInt(3, 1);
+				insertarVentaProducto.executeUpdate();
 				
-				descontarStock = DbConnector.getInstancia().getConn_Transaccion().prepareStatement("UPDATE producto " + 
+				descontarStock = DbConnector.getInstancia().getConn().prepareStatement("UPDATE producto " + 
 						"SET stock = ? WHERE id_producto = ?" 
 						);
 
@@ -59,21 +73,22 @@ public class DataVenta {
 				
 				p = lp.getOne(listaCarrito.get(i)[0]);
 				
-				insertarVentaProducto = DbConnector.getInstancia().getConn_Transaccion().prepareStatement(
+				insertarVentaProducto = DbConnector.getInstancia().getConn().prepareStatement(
 						"INSERT INTO venta_producto (id_producto, id_venta, cantidad) " + 
 						"VALUES (?, ?, ?); " 
 						);
 
 				insertarVentaProducto.setInt(1, p.getId());
 				insertarVentaProducto.setInt(2, v.getId_venta());
-				insertarVenta.setInt(3, listaCarrito.get(i)[1]);
-				insertarVenta.executeUpdate();
+				int cant = listaCarrito.get(i)[1];
+				insertarVentaProducto.setInt(3, cant);
+				insertarVentaProducto.executeUpdate();
 				
-				descontarStock = DbConnector.getInstancia().getConn_Transaccion().prepareStatement("UPDATE producto " + 
+				descontarStock = DbConnector.getInstancia().getConn().prepareStatement("UPDATE producto " + 
 						"SET stock = ? WHERE id_producto = ?" 
 						);
 
-				descontarStock.setInt(1, p.getStock()-1);
+				descontarStock.setInt(1, p.getStock()-cant);
 				descontarStock.setInt(2, p.getId());
 				descontarStock.executeUpdate();
 	
@@ -81,14 +96,12 @@ public class DataVenta {
 			
 			
 		}
-		
-		
 			
-		DbConnector.getInstancia().getConn_Transaccion().commit();
+		DbConnector.getInstancia().getConn().commit();
 		
 		} catch (SQLException e) {
 			try {
-				DbConnector.getInstancia().getConn_Transaccion().rollback();
+				DbConnector.getInstancia().getConn().rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -98,12 +111,57 @@ public class DataVenta {
 				if(insertarVenta!=null) {insertarVenta.close();}
 				if(insertarVentaProducto !=null) {insertarVentaProducto.close();}
 				if(descontarStock !=null) {descontarStock.close();}
-				DbConnector.getInstancia().getConn_Transaccion().setAutoCommit(true);
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-    }
-}
+	}
+		
+	public LinkedList<Venta_Producto> getAllVentaProducto(int id_usuario){
+
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		LinkedList<Venta_Producto> ventasProductos = new LinkedList<>();
+		Venta_Producto vp = new Venta_Producto();
+		
+		try {
+			stmt= DbConnector.getInstancia().getConn().prepareStatement(
+					"SELECT v.fechaVenta, v.estado, p.descripcion, p.precio "
+					+ "FROM venta_producto vp "
+					+ "inner join venta v on v.id_venta = vp.id_venta "
+					+ "inner join producto p on p.id_producto = vp.id_producto "
+					+ "where v.id_usuario=?;");
+			
+			stmt.setInt(1, id_usuario);
+			rs=stmt.executeQuery();
+			
+			if(rs!=null) {
+				while(rs.next()) {
+					vp.setVenta(new Venta());
+					vp.getVenta().setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
+					vp.getVenta().setEstado(rs.getString("estado"));
+					vp.setProd(new Producto());
+					vp.getProd().setDescripcion(rs.getString("descripcion"));
+					vp.getProd().setPrecio(rs.getDouble("precio"));
+					ventasProductos.add(vp);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return ventasProductos;
+		}	
+	}
+
 

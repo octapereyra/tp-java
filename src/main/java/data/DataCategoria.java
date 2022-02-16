@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 import entities.Categoria;
-import entities.Producto;
 
 public class DataCategoria {
 	

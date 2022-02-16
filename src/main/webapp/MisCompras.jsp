@@ -1,5 +1,6 @@
-<%@page import="entities.Producto" %>
-<%@page import="entities.Venta" %>
+<%@page import="entities.Venta_Producto" %>
+<%@page import="entities.Usuario" %>
+<%@page import="logic.LogicVenta" %>
 <%@page import="java.util.LinkedList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -12,11 +13,11 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	<%LinkedList<Producto> list = (LinkedList<Producto>)request.getAttribute("listaProductos"); %>
-	<%if (list == null){ list = new LinkedList<Producto>();};%>
 	
-	<%Venta v = (Venta)request.getAttribute("venta");%>
-	<%if (v == null){ v = new Venta();};%>
+	<%Usuario us = (Usuario)session.getAttribute("user");%>
+	
+	<%LogicVenta lv = new LogicVenta(); %>
+	<% LinkedList<Venta_Producto> list = lv.getAllVentaProducto(us.getId_usuario()); %>
 </head>
 <body>
 	<!--CABECERA-->
@@ -59,12 +60,16 @@
 		</nav>
 	<!--CABECERA-->
 	
-	<%for(Producto prod : list){ %>
+	<%int cont = 0; %>
+	<%for(Venta_Producto vp : list) { %>
 	<div class="card w-50">
   		<div class="card-body">
-		    <h5 class="card-title"><%=prod.getDescripcion() %></h5>
-		    <p class="card-text">Estado:<%= v.getEstado()%></p>
-		    <p class="card-text">LLega el:<%= v.getFechaVenta()%></p>
+		    <h5 class="card-title"> Compra <%=cont++%></h5>
+		    <p class="card-text">Fecha:<%= vp.getVenta().getFechaVenta()%></p>
+		    <p class="card-text">Estado:<%= vp.getVenta().getEstado()%></p>
+		    <p class="card-text">Producto:<%= vp.getProd().getDescripcion()%></p>
+		    <p class="card-text">Precio:<%= vp.getProd().getPrecio()%></p>
+		    <!--<p class="card-text">LLega el:</p>-->
 	  	</div>
 	</div>
 	<%}%>

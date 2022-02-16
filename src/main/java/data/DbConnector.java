@@ -44,19 +44,7 @@ public class DbConnector {
 		return conn;
 	}
 	
-	public Connection getConn_Transaccion() {
-		try {
-			if(conn==null || conn.isClosed()) {
-				conn=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db, user, password);
-				conectados=0;
-				conn.setAutoCommit(false);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		conectados++;
-		return conn;
-	}
+	
 	
 	public void releaseConn() {
 		conectados--;

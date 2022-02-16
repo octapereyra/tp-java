@@ -64,8 +64,6 @@ public class Compra extends HttpServlet {
 			e.printStackTrace();
 		}
 			
-		request.setAttribute("lista", listaCarrito);
-		request.setAttribute("venta", v);
 		distpacher = request.getRequestDispatcher("MisCompras.jsp");
 
 		distpacher.forward(request, response);

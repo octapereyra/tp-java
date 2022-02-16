@@ -1,7 +1,7 @@
 package logic;
 
 import data.DataVenta;
-import entities.Producto;
+import entities.Venta_Producto;
 import entities.Venta;
 
 import java.util.ArrayList;
@@ -18,6 +18,10 @@ public class LogicVenta {
 	public void confirmarVenta(Venta v, ArrayList<int[]> listaCarrito)  {
 		
 		dv.confirmarVenta(v, listaCarrito);
+	}
+	
+	public LinkedList<Venta_Producto> getAllVentaProducto(int id_usuario){
+		return dv.getAllVentaProducto(id_usuario);
 	}
 	
 }
