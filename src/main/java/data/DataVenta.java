@@ -126,7 +126,7 @@ public class DataVenta {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().prepareStatement(
-					"SELECT v.id_venta, v.fechaVenta, v.estado, p.descripcion, p.precio "
+					"SELECT v.id_venta, v.fechaVenta, v.estado, v.cod_postal, p.descripcion, p.precio "
 					+ "FROM venta_producto vp "
 					+ "inner join venta v on v.id_venta = vp.id_venta "
 					+ "inner join producto p on p.id_producto = vp.id_producto "
@@ -142,6 +142,7 @@ public class DataVenta {
 					vp.getVenta().setId_venta(rs.getInt("id_venta"));
 					vp.getVenta().setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
 					vp.getVenta().setEstado(rs.getString("estado"));
+					vp.getVenta().setCod_postal(rs.getInt("cod_postal"));
 					vp.setProd(new Producto());
 					vp.getProd().setDescripcion(rs.getString("descripcion"));
 					vp.getProd().setPrecio(rs.getDouble("precio"));

@@ -1,6 +1,8 @@
 <%@page import="entities.Venta_Producto" %>
 <%@page import="entities.Usuario" %>
+<%@page import="entities.Localidad" %>
 <%@page import="logic.LogicVenta" %>
+<%@page import="logic.LogicLocalidad" %>
 <%@page import="java.util.LinkedList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -19,6 +21,8 @@
 	<%LogicVenta lv = new LogicVenta(); %>
 	<% LinkedList<Venta_Producto> list = lv.getAllVentaProducto(us.getId_usuario()); %>
 	<% if(list == null) {list = new  LinkedList<Venta_Producto>();}; %>
+	
+	<%LogicLocalidad loclog = new LogicLocalidad(); %>
 </head>
 <body>
 	<!--CABECERA-->
@@ -64,13 +68,14 @@
 	
 	<%int cont = 1; %>
 	<%for (Venta_Producto vp : list) { %>
+	<%Localidad loc = loclog.getOne(vp.getVenta().getCod_postal()); %>
 	<div class="ps-3 card" style="border-bottom: 5px solid">
 		    <h5 class="card-title"> Compra <%=cont++%></h5>
-		    <p class="card-text">Fecha:<%= vp.getVenta().getFechaVenta()%></p>
-		    <p class="card-text">Estado:<%= vp.getVenta().getEstado()%></p>
-		    <p class="card-text">Producto:<%= vp.getProd().getDescripcion()%></p>
-		    <p class="card-text">Precio:<%= vp.getProd().getPrecio()%></p>
-		    <!--<p class="card-text">LLega el:</p>-->
+		    <p class="card-text">Fecha: <%= vp.getVenta().getFechaVenta()%></p>
+		    <p class="card-text">Estado: <%= vp.getVenta().getEstado()%></p>
+		    <p class="card-text">Producto: <%= vp.getProd().getDescripcion()%></p>
+		    <p class="card-text">Precio: <%= vp.getProd().getPrecio()%></p>
+		    <p class="card-text">LLega el: <%= vp.getVenta().getFechaVenta().plusDays(loc.getDias_de_tardanza())%></p>
 	 </div>
 	<%}%>
 
