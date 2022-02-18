@@ -6,31 +6,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
-import entities.Flete;
-import entities.Localidad;
-import entities.Zona;
 
-public class DataLocalidad {
+import entities.Flete;
+
+public class DataFlete {
 	
-	public LinkedList<Localidad> getAll(){
-		
+	public LinkedList<Flete> getAll(){	
 		Statement stmt=null;
 		ResultSet rs=null;
-		LinkedList<Localidad> loc= new LinkedList<>();
+		LinkedList<Flete> fletes= new LinkedList<>();
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select cod_postal,descripcion,cod_zona,dias_de_tardanza_envio from localidad");
+			rs= stmt.executeQuery("select id_flete,nombre from flete");
 			
 			if(rs!=null) {
 				while(rs.next()) {
-					Localidad l= new Localidad();
-					l.setCod_postal(rs.getInt("cod_postal"));
-					l.setDescripcion(rs.getString("descripcion"));
-					l.setZona(new Zona());
-					l.getZona().setCod_zona(rs.getInt("cod_zona"));
-					l.setDias_de_tardanza(rs.getInt("dias_de_tardanza_envio"));
-					loc.add(l);
+					Flete f= new Flete();
+					f.setId_flete(rs.getInt("id_flete"));
+					f.setNombre(rs.getString("nombre"));
+					
+					fletes.add(f);
 				}
 			}
 			
@@ -46,39 +42,35 @@ public class DataLocalidad {
 				e.printStackTrace();
 			}
 		}
-		return loc;
+		return fletes;
 	}
 	
-	public Localidad getOne(int cod_postal) {
+	public Flete getByNombre(String nombre){
 		
-		Localidad l = null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
+		Flete flete= new Flete();
 		
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
-					"SELECT l.cod_postal,l.descripcion,l.cod_zona,l.dias_de_tardanza_envio,f.id_flete "
-							+ "FROM localidad l "
-							+ "INNER JOIN zona z on z.cod_zona = l.cod_zona "
-							+ "INNER JOIN flete f on f.id_flete = z.id_flete "
-							+ "WHERE cod_postal=?;"
+					"select id_flete,nombre from flete "
+					+"where nombre=?;"
 					);
-			stmt.setInt(1, cod_postal);
+			stmt.setString(1, nombre);
 			rs=stmt.executeQuery();
 			
-			if(rs!=null && rs.next()) {
-				l = new Localidad();
-				l.setCod_postal(rs.getInt("cod_postal"));
-				l.setDescripcion(rs.getString("descripcion"));
-				l.setZona(new Zona());
-				l.getZona().setCod_zona(rs.getInt("cod_zona"));
-				l.setDias_de_tardanza(rs.getInt("dias_de_tardanza_envio"));
-				l.getZona().setFlete(new Flete());
-				l.getZona().getFlete().setId_flete(rs.getInt("id_flete"));
+			if(rs!=null) {
+				while(rs.next()) {
+					flete.setId_flete(rs.getInt("id_flete"));
+					flete.setNombre(rs.getString("nombre"));
+
+				}
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+			
+		} finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
@@ -87,31 +79,25 @@ public class DataLocalidad {
 				e.printStackTrace();
 			}
 		}
-		
-		return l;
+		return flete;
 	}
 	
-	public void add(Localidad l) {
+	public void add(Flete f) {
 		PreparedStatement stmt= null;
 		ResultSet keyResultSet=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into localidad(cod_postal, descripcion, cod_zona, dias_de_tardanza_envio) values(?,?,?,?)",
+							"insert into flete(nombre) values(?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
-			stmt.setInt(1, l.getCod_postal());
-			stmt.setString(2, l.getDescripcion());
-			stmt.setInt(3, l.getZona().getCod_zona());
-			stmt.setInt(4, l.getDias_de_tardanza());
+			stmt.setString(1, f.getNombre());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
             if(keyResultSet!=null && keyResultSet.next()){
-                l.setCod_postal(keyResultSet.getInt(1));
+                f.setId_flete(keyResultSet.getInt(1));
             }
-
-			
 		}  catch (SQLException e) {
             e.printStackTrace();
 		} finally {
@@ -124,24 +110,18 @@ public class DataLocalidad {
             }
 		}
     }
-	
-	public void update(Localidad l) {
+
+	public void update(Flete f) {
 		PreparedStatement stmt=null;
 		try {
-			stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE localidad " + 
-					"SET cod_postal = ?, descripcion = ?, cod_zona = ?, dias_de_tardanza_envio = ? " 
-					+ "WHERE cod_postal = ?"
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE flete " + 
+					"SET nombre=? " 
+					+ "WHERE id_flete = ?"
 					);
 			
-			stmt.setInt(1, l.getCod_postal());
-			stmt.setString(2, l.getDescripcion());
-			stmt.setInt(3, l.getZona().getCod_zona());		
-			stmt.setInt(4, l.getDias_de_tardanza());
-			stmt.setInt(5, l.getCod_postal());
-			
+			stmt.setString(1, f.getNombre());
+			stmt.setInt(2, f.getId_flete());
 			stmt.executeUpdate();
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -154,13 +134,13 @@ public class DataLocalidad {
 		}
 		
 	}
-	
-	public void delete(Localidad l) {
+
+	public void delete(Flete f) {
 		PreparedStatement stmt=null;
 		try {
-			stmt=DbConnector.getInstancia().getConn().prepareStatement("DELETE FROM localidad where cod_postal= ?");
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("DELETE FROM flete where id_flete= ?");
 
-			stmt.setInt(1, l.getCod_postal());
+			stmt.setInt(1, f.getId_flete());
 			
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -175,33 +155,29 @@ public class DataLocalidad {
 		}
 		
 	}
-	
-	public Localidad getByDescripcion(String descripcion){
+
+	public Flete getOne(int id_flete) {
 		
+		Flete f = null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
-		Localidad lo= new Localidad();
 		
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
-					"select cod_postal,descripcion from localidad "
-					+"where descripcion=?;"
+					"SELECT f.id_flete,f.nombre "
+							+ "FROM flete f "
+							+ "where f.id_flete=?;"
 					);
-			stmt.setString(1, descripcion);
+			stmt.setInt(1, id_flete);
 			rs=stmt.executeQuery();
-			
-			if(rs!=null) {
-				while(rs.next()) {
-					lo.setCod_postal(rs.getInt("cod_postal"));
-					lo.setDescripcion(rs.getString("descripcion"));
-
-				}
+			if(rs!=null && rs.next()) {
+				f= new Flete();
+				f.setId_flete(rs.getInt("id_flete"));
+				f.setNombre(rs.getString("nombre"));
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
-		} finally {
+		}finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
@@ -210,6 +186,7 @@ public class DataLocalidad {
 				e.printStackTrace();
 			}
 		}
-		return lo;
+		
+		return f;
 	}
 }
