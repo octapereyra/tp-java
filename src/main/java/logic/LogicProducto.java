@@ -3,9 +3,7 @@ package logic;
 import java.util.LinkedList;
 
 import data.DataProducto;
-import entities.Categoria;
 import entities.Producto;
-import entities.Usuario;
 
 public class LogicProducto {
 	

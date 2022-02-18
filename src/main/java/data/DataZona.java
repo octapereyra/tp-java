@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+import entities.Categoria;
 import entities.Flete;
+import entities.Producto;
 import entities.Zona;
 
 public class DataZona {
@@ -128,5 +130,80 @@ public class DataZona {
 			}
 		}
 		
+	}
+
+public Zona getOne(int id) {
+		
+		Zona z = null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(
+					"SELECT z.cod_zona,z.descripcion,f.id_flete,f.nombre "
+							+ "FROM zona z "
+							+ "inner join flete f on f.id_flete = z.id_flete "
+							+ "where z.cod_zona=?;"
+					);
+			stmt.setInt(1, id);
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				z= new Zona();
+				z.setCod_zona(rs.getInt("z.cod_zona"));
+				z.setDescripcion(rs.getString("z.descripcion"));
+				z.setFlete(new Flete());
+				z.getFlete().setId_flete(rs.getInt("f.id_flete"));
+				z.getFlete().setNombre(rs.getString("f.nombre"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return z;
+	}
+
+public Zona getByDescripcion(String descripcion){
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		Zona zona= new Zona();
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(
+					"select cod_zona,descripcion from zona "
+					+"where descripcion=?;"
+					);
+			stmt.setString(1, descripcion);
+			rs=stmt.executeQuery();
+			
+			if(rs!=null) {
+				while(rs.next()) {
+					zona.setCod_zona(rs.getInt("cod_zona"));
+					zona.setDescripcion(rs.getString("descripcion"));
+
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return zona;
 	}
 }

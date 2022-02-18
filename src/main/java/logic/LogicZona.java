@@ -3,6 +3,7 @@ package logic;
 import java.util.LinkedList;
 
 import data.DataZona;
+import entities.Producto;
 import entities.Zona;
 
 public class LogicZona {
@@ -28,5 +29,14 @@ private DataZona dz;
 	public void delete(Zona z) {
 		dz.delete(z);
 		
+	}
+
+	public Zona getOne(int id) { 
+
+		return dz.getOne(id);
+	}
+
+	public Zona getByDescripcion(String descripcion) {
+		return dz.getByDescripcion(descripcion);
 	}
 }

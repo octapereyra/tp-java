@@ -90,4 +90,124 @@ public class DataLocalidad {
 		
 		return l;
 	}
+	
+	public void add(Localidad l) {
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"insert into localidad(descripcion, cod_zona, dias_de_tardanza_envio) values(?,?,?)",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setString(1, l.getDescripcion());
+			stmt.setInt(2, l.getZona().getCod_zona());
+			stmt.setInt(3, l.getDias_de_tardanza());
+			stmt.executeUpdate();
+			
+			keyResultSet=stmt.getGeneratedKeys();
+            if(keyResultSet!=null && keyResultSet.next()){
+                l.setCod_postal(keyResultSet.getInt(1));
+            }
+
+			
+		}  catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+    }
+	
+	public void update(Localidad l) {
+		PreparedStatement stmt=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE localidad " + 
+					"SET descripcion = ?, cod_zona = ?, dias_de_tardanza_envio = ? " 
+					+ "WHERE cod_postal = ?"
+					);
+			
+			stmt.setString(1, l.getDescripcion());
+			stmt.setInt(2, l.getZona().getCod_zona());		
+			stmt.setInt(3, l.getDias_de_tardanza());
+			stmt.setInt(4, l.getCod_postal());
+			
+			stmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public void delete(Localidad l) {
+		PreparedStatement stmt=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("DELETE FROM localidad where cod_postal= ?");
+
+			stmt.setInt(1, l.getCod_postal());
+			
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public Localidad getByDescripcion(String descripcion){
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		Localidad lo= new Localidad();
+		
+		try {
+			stmt = DbConnector.getInstancia().getConn().prepareStatement(
+					"select cod_postal,descripcion from localidad "
+					+"where descripcion=?;"
+					);
+			stmt.setString(1, descripcion);
+			rs=stmt.executeQuery();
+			
+			if(rs!=null) {
+				while(rs.next()) {
+					lo.setCod_postal(rs.getInt("cod_postal"));
+					lo.setDescripcion(rs.getString("descripcion"));
+
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return lo;
+	}
 }

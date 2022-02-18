@@ -11,6 +11,7 @@
 	<meta charset="ISO-8859-1">
 	<title>Productos</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/listProducts_style.css">
 	
 	<%LogicProducto lp = new LogicProducto();%>
 	
@@ -79,6 +80,7 @@
     				<a href="./Categorias.jsp" class="list-group-item list-group-item-action" aria-current="true">Categoria</a>	
     			</div>	
     			<%} %>
+    		</div>
 		</form>
 	</div>
 	<div class="container">
@@ -100,6 +102,7 @@
 			      <td><%=cat.getDenominacion() %></td>
 			      <td><%=pr.getDescripcion() %></td>
 			      <td><%=pr.getPrecio() %></td>
+			      <td><input class="rating rating--nojs" max="5" step="1" type="range" value="3"></td>
 			      <%-- 		      <td><%=pr.getStock() %></td> --%>
 			      <%if(us.getTipoUsuario().getId_TipoUsuario() == 1){ %>
 				  <td><a class="btn" href="ABMCproducto?accion=modificar&id=<%=pr.getId() %>">Modificar</a></td>

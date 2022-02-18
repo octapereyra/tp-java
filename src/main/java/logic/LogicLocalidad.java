@@ -22,4 +22,19 @@ public class LogicLocalidad {
 		return dl.getOne(cod_postal);
 	}
 
+	public void add(Localidad lo) {
+		dl.add(lo);
+		
+	}
+
+	public void update(Localidad lo) {
+		dl.update(lo);
+		
+	}
+
+	public void delete(Localidad lo) {
+		dl.delete(lo);
+		
+	}
+
 }

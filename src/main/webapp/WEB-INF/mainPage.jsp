@@ -46,6 +46,16 @@
     				</li>
     			</ul>
     			<ul class="navbar-nav me-4 mb-2 mb-lg-end">
+    			<%if(us.getTipoUsuario().getId_TipoUsuario() == 1){ %>
+                    <li class="nav-item dropdown"> 
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Configuracion</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./Fletes.jsp">Fletes</a></li>
+                            <li><a class="dropdown-item" href="./Localidades.jsp">Localidades</a></li>
+                            <li><a class="dropdown-item" href="./Zonas.jsp">Zonas</a></li>
+                        </ul>
+                    </li>
+                    <%} %>
     				<li class="nav-item">
     					<a class="nav-link" aria-current="page" href="./Carro_de_compras.jsp">Mi carrito</a>
     				</li>

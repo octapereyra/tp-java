@@ -2,7 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.Date;
 import java.util.Properties;
 
 import javax.servlet.ServletException;
@@ -71,8 +70,10 @@ public class Register extends HttpServlet {
 		else {
 			//valido
 			lu.add(user);
-			//sendMail(user.getEmail());
-			response.sendRedirect("index.jsp");
+			sendMail(user);
+			request.setAttribute("msg", "Registro exitoso");
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+
 		}
 	}
 	
@@ -90,57 +91,47 @@ public class Register extends HttpServlet {
 	}
 
 	
-	private void sendMail(String to) {
+	private void sendMail(Usuario usr) {
+		
+		String to = usr.getEmail();
+        String from = "no-reply@obtcomputacion.com.ar";
+        
+        final String username = "obtcomputacion@gmail.com";
+        final String password = "computacionobt123";
 
-        // Sender's email ID needs to be mentioned
-        String from = "toaddress@gmail.com";
-
-        // Assuming you are sending email from through gmails smtp
         String host = "smtp.gmail.com";
 
-        // Get system properties
-        Properties properties = System.getProperties();
-        
-     // Setup mail server
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "465");
-        properties.put("mail.smtp.ssl.enable", "true");
-        properties.put("mail.smtp.auth", "true");
-        
-     // Get the Session object.// and pass username and password
-     Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
-    	 protected PasswordAuthentication getPasswordAuthenticator() {
-    		 return new PasswordAuthentication("maildesalida@mail.com", "*******");
-    	 }
-     });
-     
-  // Used to debug SMTP issues
-     session.setDebug(true);
-     
-     try {
-  // Create a default MimeMessage object.
-     MimeMessage message = new MimeMessage(session);
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
 
-     // Set From: header field of the header.
-     message.setFrom(new InternetAddress(from));
+        Session session = Session.getInstance(props,
+            new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(username, password);
+                }
+            });
 
-     // Set To: header field of the header.
-     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+        try {
+            Message message = new MimeMessage(session);
 
-     // Set Subject: header field
-     message.setSubject("Bienvenido!!");
+            message.setFrom(new InternetAddress(from));
 
-     // Now set the actual message
-     message.setText("Te has registrado en nuestro sistema.");
+            message.setRecipients(Message.RecipientType.TO,
+                InternetAddress.parse(to));
 
-     // Send message
-     Transport.send(message);
-     
-	} catch (MessagingException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+            message.setSubject("Bienvenido a OBT computación");
+
+            message.setText("Hola "+usr.getNombre()+" "+usr.getApellido()+". Te has registrado con éxito. Ya puedes examinar nuestro catálogo y comprar lo que desees.");
+
+            Transport.send(message);
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
 	}
-       
-				
-	}
+
+
 }
