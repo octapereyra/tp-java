@@ -47,6 +47,9 @@
     			</div>	
 
 		</form>
+		<%if(request.getAttribute("error") != null){ %>
+			<p class="text-danger fs-5"><%=(String)request.getAttribute("error") %></p>
+		<%} %>
 		</div>
 </body>
 </html>

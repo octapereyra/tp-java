@@ -135,7 +135,21 @@ public class DataFlete {
 		
 	}
 
-	public void delete(Flete f) {
+	public void delete(Flete f) throws SQLException {
+		PreparedStatement stmt=null;
+		
+		stmt=DbConnector.getInstancia().getConn().prepareStatement("DELETE FROM flete where id_flete= ?");
+
+		stmt.setInt(1, f.getId_flete());
+			
+		stmt.executeUpdate();
+	
+		if(stmt!=null) {stmt.close();}
+		DbConnector.getInstancia().releaseConn();
+		
+	}
+	
+	/*public void delete(Flete f) {
 		PreparedStatement stmt=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement("DELETE FROM flete where id_flete= ?");
@@ -154,7 +168,7 @@ public class DataFlete {
 			}
 		}
 		
-	}
+	}*/
 
 	public Flete getOne(int id_flete) {
 		

@@ -1,9 +1,9 @@
 package logic;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import data.DataLocalidad;
-import entities.Categoria;
 import entities.Localidad;
 
 public class LogicLocalidad {
@@ -32,7 +32,7 @@ public class LogicLocalidad {
 		
 	}
 
-	public void delete(Localidad lo) {
+	public void delete(Localidad lo) throws SQLException {
 		dl.delete(lo);
 		
 	}

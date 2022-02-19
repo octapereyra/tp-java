@@ -155,25 +155,17 @@ public class DataLocalidad {
 		
 	}
 	
-	public void delete(Localidad l) {
+	public void delete(Localidad l) throws SQLException {
 		PreparedStatement stmt=null;
-		try {
-			stmt=DbConnector.getInstancia().getConn().prepareStatement("DELETE FROM localidad where cod_postal= ?");
-
-			stmt.setInt(1, l.getCod_postal());
-			
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(stmt!=null) {stmt.close();}
-				DbConnector.getInstancia().releaseConn();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
 		
+		stmt=DbConnector.getInstancia().getConn().prepareStatement("DELETE FROM localidad where cod_postal= ?");
+
+		stmt.setInt(1, l.getCod_postal());
+			
+		stmt.executeUpdate();
+
+		if(stmt!=null) {stmt.close();}
+		DbConnector.getInstancia().releaseConn();
 	}
 	
 	public Localidad getByDescripcion(String descripcion){

@@ -12,6 +12,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<%Usuario us = (Usuario)session.getAttribute("user");%>
 
 </head>
 <body>
@@ -27,22 +28,35 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
     			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
     				<li class="nav-item">
-    					<a class="nav-link" aria-current="page" href="MainPage?accion=home"> Home</a>
+    					<a class="nav-link" aria-current="page" href="#">Home</a>
     				</li>
     				<li class="nav-item">
-    					<a class="nav-link" aria-current="page" href="listProducts.jsp">Productos</a>
+    					<a class="nav-link" aria-current="page" href="./listProducts.jsp">Productos</a>
     				</li>
     				<li class="nav-item dropdown"> 
-    					<a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Mi cuenta</a>
+    					<a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Mi cuenta</a>
     					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-    						<li><a class="dropdown-item" href="miPerfil.jsp">Perfil</a></li>
+    						<li><a class="dropdown-item" href="./miPerfil.jsp">Perfil</a></li>
     						<li><a class="dropdown-item" href="MainPage?accion=logout">Cerrar Sesión</a></li>
     					</ul>
     				</li>
     			</ul>
     			<ul class="navbar-nav me-4 mb-2 mb-lg-end">
+    			<%if(us.getTipoUsuario().getId_TipoUsuario() == 1){ %>
+                    <li class="nav-item dropdown"> 
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Configuracion</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./Fletes.jsp">Fletes</a></li>
+                            <li><a class="dropdown-item" href="./Localidades.jsp">Localidades</a></li>
+                            <li><a class="dropdown-item" href="./Zonas.jsp">Zonas</a></li>
+                        </ul>
+                    </li>
+                    <%} %>
     				<li class="nav-item">
-    					<a class="nav-link" aria-current="page" href="Carro_de_compras.jsp">Mi carrito</a>
+    					<a class="nav-link" aria-current="page" href="./Carro_de_compras.jsp">Mi carrito</a>
+    				</li>
+    				<li class="nav-item">
+    					<a class="nav-link" aria-current="page" href="./MisCompras.jsp">Mis Compras</a>
     				</li>
     			</ul>
     			<form class="d-flex">
@@ -67,7 +81,6 @@
   </header>
 
   <main>
-  	<%Usuario us = (Usuario)session.getAttribute("user");%>
 
     <form method="post" action="UserMB?accion=update" class="bg-light mt-1">
     <div class="col-md-4">

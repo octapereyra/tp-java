@@ -6,9 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
-import entities.Categoria;
 import entities.Flete;
-import entities.Producto;
 import entities.Zona;
 
 public class DataZona {
@@ -18,7 +16,7 @@ public class DataZona {
 		Statement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Zona> zonas= new LinkedList<>();
-		Flete flete = new Flete();
+		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
 			rs= stmt.executeQuery("SELECT z.cod_zona, z.descripcion, z.id_flete, f.nombre "
@@ -27,6 +25,7 @@ public class DataZona {
 			if(rs!=null) {
 				while(rs.next()) {
 					Zona z= new Zona();
+					Flete flete = new Flete();
 					z.setCod_zona(rs.getInt("z.cod_zona"));
 					z.setDescripcion(rs.getString("z.descripcion"));
 					flete.setId_flete(rs.getInt("z.id_flete"));
@@ -111,24 +110,17 @@ public class DataZona {
 		
 	}
 
-	public void delete(Zona z) {
+	public void delete(Zona z) throws SQLException {
 		PreparedStatement stmt=null;
-		try {
-			stmt=DbConnector.getInstancia().getConn().prepareStatement("DELETE FROM zona where cod_zona= ?");
+		
+		stmt=DbConnector.getInstancia().getConn().prepareStatement("DELETE FROM zona where cod_zona= ?");
 
-			stmt.setInt(1, z.getCod_zona());
+		stmt.setInt(1, z.getCod_zona());
 			
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(stmt!=null) {stmt.close();}
-				DbConnector.getInstancia().releaseConn();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		stmt.executeUpdate();
+		
+		if(stmt!=null) {stmt.close();}
+		DbConnector.getInstancia().releaseConn();
 		
 	}
 

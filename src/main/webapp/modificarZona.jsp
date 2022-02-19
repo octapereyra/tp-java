@@ -22,7 +22,6 @@
 			<div class="mb-3">
 		    	<input name="id" type="hidden" class="form-control" value="<%=zo.getCod_zona() %>">
 		  	</div>
-		  	
 			<div class="mb-3">
 		    	<label class="form-label">Descripcion</label>
 		    	<input name="descripcion" type="text" class="form-control" value="<%=zo.getDescripcion() %>">

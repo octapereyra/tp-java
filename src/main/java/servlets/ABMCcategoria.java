@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.RequestDispatcher;
@@ -11,9 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Categoria;
-import entities.Producto;
 import logic.LogicCategoria;
-import logic.LogicProducto;
 
 /**
  * Servlet implementation class ABMCcategoria
@@ -82,7 +81,11 @@ public class ABMCcategoria extends HttpServlet {
 		
 		cat.setId_categoria(Integer.parseInt(request.getParameter("id")));
 		
-		lc.delete(cat);	
+		try {
+			lc.delete(cat);
+		} catch (SQLException e) {
+			request.setAttribute("error", "Ha ocurrido un error al eliminar la categoría");
+		}	
 		
 		listaCategorias = lc.getAll();
 		request.setAttribute("listaCat", listaCategorias);

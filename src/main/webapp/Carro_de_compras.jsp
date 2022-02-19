@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="entities.Producto" %>
+<%@page import="entities.*" %>
 <%@page import="logic.LogicProducto" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -21,49 +21,63 @@
 	<%if(total==null) total="0.0";%>
 	
 	<%LogicProducto lp= new LogicProducto();%>
+	<%Usuario us = (Usuario)session.getAttribute("user");%>
 </head>
 <body id="contenedor">
 	
 	<header id="cabecera">
 		<!--CABECERA-->
-		<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="#">
-					<img src="img/java-logo.png" width="150px">
-				</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	      			<span class="navbar-toggler-icon"></span>
-	    		</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-	    				<li class="nav-item">
-	    					<a class="nav-link" aria-current="page" href="MainPage?accion=home"> Home</a>
-	    				</li>
-	    				<li class="nav-item">
-	    					<a class="nav-link" aria-current="page" href="listProducts.jsp">Productos</a>
-	    				</li>
-	    				<li class="nav-item dropdown"> 
-	    					<a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Mi cuenta</a>
-	    					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	    						<li><a class="dropdown-item" href="miPerfil.jsp">Perfil</a></li>
-	    						<li><a class="dropdown-item" href="MainPage?accion=logout">Cerrar Sesión</a></li>
-	    					</ul>
-	    				</li>
-	    			</ul>
-	    			<ul class="navbar-nav me-4 mb-2 mb-lg-end">
-	    				<li class="nav-item">
-	    					<a class="nav-link" aria-current="page" href="#">Mi carrito</a>
-	    				</li>
-	    			</ul>
-	    			<form class="d-flex">
-	        			<input class="form-control me-2" type="search" placeholder="¿Qué estas buscando?" aria-label="Search"
-	        			size="40">
-	        			<button class="btn btn-outline-success" type="submit">Buscar</button>
-	      			</form>
-	    		</div>
-			</div>
-		</nav>
-		<!--CABECERA-->
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">
+				<img src="img/java-logo.png" width="150px">
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      			<span class="navbar-toggler-icon"></span>
+    		</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    				<li class="nav-item">
+    					<a class="nav-link" aria-current="page" href="#">Home</a>
+    				</li>
+    				<li class="nav-item">
+    					<a class="nav-link" aria-current="page" href="./listProducts.jsp">Productos</a>
+    				</li>
+    				<li class="nav-item dropdown"> 
+    					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Mi cuenta</a>
+    					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+    						<li><a class="dropdown-item" href="./miPerfil.jsp">Perfil</a></li>
+    						<li><a class="dropdown-item" href="MainPage?accion=logout">Cerrar Sesión</a></li>
+    					</ul>
+    				</li>
+    			</ul>
+    			<ul class="navbar-nav me-4 mb-2 mb-lg-end">
+    			<%if(us.getTipoUsuario().getId_TipoUsuario() == 1){ %>
+                    <li class="nav-item dropdown"> 
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Configuracion</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./Fletes.jsp">Fletes</a></li>
+                            <li><a class="dropdown-item" href="./Localidades.jsp">Localidades</a></li>
+                            <li><a class="dropdown-item" href="./Zonas.jsp">Zonas</a></li>
+                        </ul>
+                    </li>
+                    <%} %>
+    				<li class="nav-item">
+    					<a class="nav-link active" aria-current="page" href="./Carro_de_compras.jsp">Mi carrito</a>
+    				</li>
+    				<li class="nav-item">
+    					<a class="nav-link" aria-current="page" href="./MisCompras.jsp">Mis Compras</a>
+    				</li>
+    			</ul>
+    			<form class="d-flex">
+        			<input class="form-control me-2" type="search" placeholder="¿Qué estas buscando?" aria-label="Search"
+        			size="40">
+        			<button class="btn btn-outline-success" type="submit">Buscar</button>
+      			</form>
+    		</div>
+		</div>
+	</nav>
+	<!--CABECERA-->
 	</header>
 	<div id=productos class="container mt-4">
 		<div class="row">

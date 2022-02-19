@@ -38,22 +38,35 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
     			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
     				<li class="nav-item">
-    					<a class="nav-link" aria-current="page" href="MainPage?accion=home"> Home</a>
+    					<a class="nav-link" aria-current="page" href="#">Home</a>
     				</li>
     				<li class="nav-item">
-    					<a class="nav-link active" aria-current="page" href="listProducts.jsp">Productos</a>
+    					<a class="nav-link active" aria-current="page" href="./listProducts.jsp">Productos</a>
     				</li>
     				<li class="nav-item dropdown"> 
     					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Mi cuenta</a>
     					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-    						<li><a class="dropdown-item" href="miPerfil.jsp">Perfil</a></li>
+    						<li><a class="dropdown-item" href="./miPerfil.jsp">Perfil</a></li>
     						<li><a class="dropdown-item" href="MainPage?accion=logout">Cerrar Sesión</a></li>
     					</ul>
     				</li>
     			</ul>
     			<ul class="navbar-nav me-4 mb-2 mb-lg-end">
+    			<%if(us.getTipoUsuario().getId_TipoUsuario() == 1){ %>
+                    <li class="nav-item dropdown"> 
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Configuracion</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./Fletes.jsp">Fletes</a></li>
+                            <li><a class="dropdown-item" href="./Localidades.jsp">Localidades</a></li>
+                            <li><a class="dropdown-item" href="./Zonas.jsp">Zonas</a></li>
+                        </ul>
+                    </li>
+                    <%} %>
     				<li class="nav-item">
-    					<a class="nav-link" aria-current="page" href="carrito?accion=carrito">(<label><%=cont%></label>)Mi carrito</a>
+    					<a class="nav-link" aria-current="page" href="./Carro_de_compras.jsp">Mi carrito</a>
+    				</li>
+    				<li class="nav-item">
+    					<a class="nav-link" aria-current="page" href="./MisCompras.jsp">Mis Compras</a>
     				</li>
     			</ul>
     			<form class="d-flex">
@@ -101,8 +114,7 @@
 			    <tr>
 			      <td><%=cat.getDenominacion() %></td>
 			      <td><%=pr.getDescripcion() %></td>
-			      <td><%=pr.getPrecio() %></td>
-			      <td><input class="rating rating--nojs" max="5" step="1" type="range" value="3"></td>
+			      <td>$ <%=pr.getPrecio() %></td>
 			      <%-- 		      <td><%=pr.getStock() %></td> --%>
 			      <%if(us.getTipoUsuario().getId_TipoUsuario() == 1){ %>
 				  <td><a class="btn" href="ABMCproducto?accion=modificar&id=<%=pr.getId() %>">Modificar</a></td>

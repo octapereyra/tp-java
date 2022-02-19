@@ -38,13 +38,14 @@
 		    <% } %>
 		  </tbody>
 		</table>	
-	</div>
-				<div class="btn-group">
+			<div class="btn-group">
   					<a href="ABMCadmin?accion=nuevoFlete" class="list-group-item list-group-item-action" aria-current="true">Nuevo Flete</a>  					 
     				<a href="MainPage?accion=home" class="list-group-item list-group-item-action" aria-current="true">Guardar</a>  
-    			</div>	
-
+    		</div>	
 		</form>
+		<%if(request.getAttribute("error") != null){ %>
+			<p class="text-danger fs-5"><%=(String)request.getAttribute("error") %></p>
+		<%} %>
 		</div>
 </body>
 </html>

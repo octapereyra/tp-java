@@ -1,4 +1,5 @@
 package logic;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import data.DataCategoria;
@@ -24,7 +25,7 @@ private DataCategoria dc;
 		
 	}
 
-	public void delete(Categoria c) {
+	public void delete(Categoria c) throws SQLException {
 		dc.delete(c);
 		
 	}

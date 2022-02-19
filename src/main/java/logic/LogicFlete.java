@@ -1,4 +1,5 @@
 package logic;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import data.DataFlete;
@@ -24,7 +25,7 @@ private DataFlete df;
 		
 	}
 
-	public void delete(Flete f) {
+	public void delete(Flete f) throws SQLException {
 		df.delete(f);
 		
 	}

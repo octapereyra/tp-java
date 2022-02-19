@@ -38,13 +38,15 @@
 		    <% } %>
 		  </tbody>
 		</table>	
-	</div>
 				<div class="btn-group">
   					<a href="ABMCcategoria?accion=nuevo" class="list-group-item list-group-item-action" aria-current="true">Nueva Categoria</a>  					 
     				<a href="./listProducts.jsp" class="list-group-item list-group-item-action" aria-current="true">Guardar</a>  
     			</div>	
 
 		</form>
+		<%if(request.getAttribute("error") != null){ %>
+			<p class="text-danger fs-5"><%=(String)request.getAttribute("error") %></p>
+		<%} %>
 		</div>
 </body>
 </html>

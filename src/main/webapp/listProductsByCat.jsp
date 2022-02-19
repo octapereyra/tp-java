@@ -67,7 +67,7 @@
 		  <% for (Producto pr : list) { %>
 		    <tr>
 		      <td><%=pr.getDescripcion() %></td>
-		      <td><%=pr.getPrecio() %></td>
+		      <td>$ <%=pr.getPrecio() %></td>
 		    </tr>
 		    <% } %>
 		  </tbody>

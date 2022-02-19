@@ -134,24 +134,17 @@ public class DataCategoria {
 		
 	}
 
-	public void delete(Categoria c) {
+	public void delete(Categoria c) throws SQLException {
+		
 		PreparedStatement stmt=null;
-		try {
-			stmt=DbConnector.getInstancia().getConn().prepareStatement("DELETE FROM categoria where id_categoria= ?");
+		stmt=DbConnector.getInstancia().getConn().prepareStatement("DELETE FROM categoria where id_categoria= ?");
 
-			stmt.setInt(1, c.getId_categoria());
+		stmt.setInt(1, c.getId_categoria());
 			
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(stmt!=null) {stmt.close();}
-				DbConnector.getInstancia().releaseConn();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		stmt.executeUpdate();
+		
+		if(stmt!=null) {stmt.close();}
+		DbConnector.getInstancia().releaseConn();
 		
 	}
 

@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.RequestDispatcher;
@@ -10,10 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Categoria;
 import entities.Flete;
 import entities.Localidad;
-import entities.Producto;
 import entities.Zona;
 import logic.LogicFlete;
 import logic.LogicLocalidad;
@@ -90,7 +89,8 @@ public class ABMCadmin extends HttpServlet {
 		
 		fle.setId_flete(Integer.parseInt(request.getParameter("id")));
 		
-		lf.delete(fle);	
+		try {lf.delete(fle);}
+		catch(SQLException e) {request.setAttribute("error", "Error al eliminar el flete ya que está asociado a una zona.");}
 		
 		listaFletes = lf.getAll();
 		request.setAttribute("listaFle", listaFletes);
@@ -121,7 +121,7 @@ public class ABMCadmin extends HttpServlet {
 		
 	}else if("updateZona".equals(accion)) {
 		Zona zo = new Zona();
-		Flete fle;
+		Flete fle = new Flete();
 		
 		zo.setCod_zona(Integer.parseInt(request.getParameter("id")));;
 		zo.setDescripcion(request.getParameter("descripcion"));
@@ -138,11 +138,15 @@ public class ABMCadmin extends HttpServlet {
 		
 		zo.setCod_zona(Integer.parseInt(request.getParameter("id")));
 		
-		lz.delete(zo);	
+		try {
+			lz.delete(zo);
+		} catch (SQLException e) {
+			request.setAttribute("error", "Ha ocurrido un error al eliminar la zona ya que está asociada a una localidad");
+		}	
 		
 		listaZonas = lz.getAll();
 		request.setAttribute("listaZonas", listaZonas);
-		distpacher = request.getRequestDispatcher("listProducts.jsp");
+		distpacher = request.getRequestDispatcher("Zonas.jsp");
 	}
 	else if("nuevaLoca".equals(accion)) {
 		
@@ -187,7 +191,11 @@ public class ABMCadmin extends HttpServlet {
 		
 		lo.setCod_postal(Integer.parseInt(request.getParameter("id")));
 		
-		ll.delete(lo);	
+		try {
+			ll.delete(lo);
+		} catch (SQLException e) {
+			request.setAttribute("error", "Ha ocurrido un error al eliminar la localidad");
+		}	
 		
 		listaLoca = ll.getAll();
 		request.setAttribute("listaLoca", listaLoca);

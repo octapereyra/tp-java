@@ -1,9 +1,9 @@
 package logic;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import data.DataZona;
-import entities.Producto;
 import entities.Zona;
 
 public class LogicZona {
@@ -26,7 +26,7 @@ private DataZona dz;
 		
 	}
 
-	public void delete(Zona z) {
+	public void delete(Zona z) throws SQLException {
 		dz.delete(z);
 		
 	}
