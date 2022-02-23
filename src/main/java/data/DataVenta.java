@@ -126,11 +126,11 @@ public class DataVenta {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().prepareStatement(
-					"SELECT v.id_venta, v.fechaVenta, v.estado, v.cod_postal, p.descripcion, p.precio "
+					"SELECT v.id_venta, v.fechaVenta, v.estado, v.cod_postal, vp.wasValued, p.id_producto, p.descripcion, p.precio "
 					+ "FROM venta_producto vp "
 					+ "inner join venta v on v.id_venta = vp.id_venta "
 					+ "inner join producto p on p.id_producto = vp.id_producto "
-					+ "where v.id_usuario=? and v.estado='pendiente';");
+					+ "where v.id_usuario=?;");
 			
 			stmt.setInt(1, id_usuario);
 			rs=stmt.executeQuery();
@@ -143,7 +143,9 @@ public class DataVenta {
 					vp.getVenta().setFechaVenta(rs.getDate("fechaVenta").toLocalDate());
 					vp.getVenta().setEstado(rs.getString("estado"));
 					vp.getVenta().setCod_postal(rs.getInt("cod_postal"));
+					vp.setWasValued(rs.getBoolean("wasValued"));
 					vp.setProd(new Producto());
+					vp.getProd().setId(rs.getInt("id_producto"));
 					vp.getProd().setDescripcion(rs.getString("descripcion"));
 					vp.getProd().setPrecio(rs.getDouble("precio"));
 					ventasProductos.add(vp);
@@ -163,7 +165,60 @@ public class DataVenta {
 			}
 		}
 		return ventasProductos;
-		}	
 	}
+	
+	public void UpdateWasValued(int id_venta, int id_producto, boolean condicion) {
+		PreparedStatement stmt=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE venta_producto " + 
+					"SET wasValued=? " 
+					+ "WHERE id_venta = ? AND id_producto=?"
+					);
+			
+			stmt.setBoolean(1, condicion);
+			stmt.setInt(2, id_venta);
+			stmt.setInt(3, id_producto);
+			stmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public void UpdateEstado(int id, String estado) {
+		PreparedStatement stmt=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE venta " + 
+					"SET estado=? " 
+					+ "WHERE id_venta = ?"
+					);
+			
+			stmt.setString(1, estado);
+			stmt.setInt(2, id);
+			stmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+}
 
 

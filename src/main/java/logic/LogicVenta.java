@@ -24,4 +24,12 @@ public class LogicVenta {
 		return dv.getAllVentaProducto(id_usuario);
 	}
 	
+	public void UpdateWasValued(int id_venta, int id_producto, boolean condicion) {
+		dv.UpdateWasValued(id_venta, id_producto, condicion);
+	}
+	
+	public void UpdateEstado(int id, String estado) {
+		dv.UpdateEstado(id, estado);
+	}
+	
 }

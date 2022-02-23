@@ -114,7 +114,12 @@
 			    <tr>
 			      <td><%=cat.getDenominacion() %></td>
 			      <td><%=pr.getDescripcion() %></td>
-			      <td>$ <%=pr.getPrecio() %></td>
+			      <td><%=pr.getPrecio() %></td>
+			      <td>	
+			      <% for (int i=0; i<pr.getPromedio_valoracion(); i++) { %>
+			      		<span class="fa-solid fa-star" id="1estrella"></span>
+				  <% } %>
+				  </td>
 			      <%-- 		      <td><%=pr.getStock() %></td> --%>
 			      <%if(us.getTipoUsuario().getId_TipoUsuario() == 1){ %>
 				  <td><a class="btn" href="ABMCproducto?accion=modificar&id=<%=pr.getId() %>">Modificar</a></td>

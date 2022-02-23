@@ -4,17 +4,18 @@
 <%@page import="logic.LogicVenta" %>
 <%@page import="logic.LogicLocalidad" %>
 <%@page import="java.util.LinkedList"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="UTF-8">
 	<title>Mis compras</title>
-	<link rel="stylesheet" href="Carrito_style.css">
+	<link rel="stylesheet" href="css/MisCompras_style.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
 	<!-- JavaScript Bundle with Popper -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 	
 	<%Usuario us = (Usuario)session.getAttribute("user");%>
 	
@@ -46,7 +47,7 @@
     					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Mi cuenta</a>
     					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
     						<li><a class="dropdown-item" href="./miPerfil.jsp">Perfil</a></li>
-    						<li><a class="dropdown-item" href="MainPage?accion=logout">Cerrar Sesi�n</a></li>
+    						<li><a class="dropdown-item" href="MainPage?accion=logout">Cerrar Sesión</a></li>
     					</ul>
     				</li>
     			</ul>
@@ -69,7 +70,7 @@
     				</li>
     			</ul>
     			<form class="d-flex">
-        			<input class="form-control me-2" type="search" placeholder="�Qu� estas buscando?" aria-label="Search"
+        			<input class="form-control me-2" type="search" placeholder="¿Qué estas buscando?" aria-label="Search"
         			size="40">
         			<button class="btn btn-outline-success" type="submit">Buscar</button>
       			</form>
@@ -79,18 +80,62 @@
 	<!--CABECERA-->
 	
 	
+	<div id="cajaCompra">
 	<%int cont = 1; %>
 	<%for (Venta_Producto vp : list) { %>
 	<%Localidad loc = loclog.getOne(vp.getVenta().getCod_postal()); %>
-	<div class="ps-3 card" style="border-bottom: 5px solid">
+	<div>
 		    <h5 class="card-title"> Compra <%=cont++%></h5>
 		    <p class="card-text">Fecha: <%= vp.getVenta().getFechaVenta()%></p>
 		    <p class="card-text">Estado: <%= vp.getVenta().getEstado()%></p>
 		    <p class="card-text">Producto: <%= vp.getProd().getDescripcion()%></p>
 		    <p class="card-text">Precio: <%= vp.getProd().getPrecio()%></p>
 		    <p class="card-text">LLega el: <%= vp.getVenta().getFechaVenta().plusDays(loc.getDias_de_tardanza())%></p>
+		    <%if(vp.getVenta().getEstado().equals("entregado") && vp.ifWasValued()==false){ %>
+				<form id="form" method="post" action="ABMCproducto">
+			  		<p class="clasificacion">
+			  			<button type="submit" id="btnCalificar" class="btn btn-primary">Calificar</button>
+			    		<input id="<%= vp.getProd().getDescripcion()%>1" type="radio" name="estrellas" value="<%=vp.getVenta().getId_venta()%>,<%= vp.getProd().getId()%>,5" style="display: none">
+			    		<!--
+			    		-->
+			    		<label for="<%= vp.getProd().getDescripcion()%>1">★</label>
+			    		<!--
+			   		 	-->
+			   		    <input id="<%= vp.getProd().getDescripcion()%>2" type="radio" name="estrellas" value="<%=vp.getVenta().getId_venta()%>,<%= vp.getProd().getId()%>,4" style="display: none">
+			   		    <!--
+			    		-->
+			    		<label for="<%= vp.getProd().getDescripcion()%>2">★</label>
+			    		<!--
+			    		-->
+			   			<input id="<%= vp.getProd().getDescripcion()%>3" type="radio" name="estrellas" value="<%=vp.getVenta().getId_venta()%>,<%= vp.getProd().getId()%>,3" style="display: none">
+			   			<!--
+			    		-->
+			    		<label for="<%= vp.getProd().getDescripcion()%>3">★</label>
+			    		<!--
+			    		-->
+			    		<input id="<%= vp.getProd().getDescripcion()%>4" type="radio" name="estrellas" value="<%=vp.getVenta().getId_venta()%>,<%= vp.getProd().getId()%>,2" style="display: none">
+			    		<!--
+			    		-->
+			    		<label for="<%= vp.getProd().getDescripcion()%>4">★</label>
+			    		<!--
+			    		-->
+			    		<input id="<%= vp.getProd().getDescripcion()%>5" type="radio" name="estrellas" value="<%=vp.getVenta().getId_venta()%>,<%= vp.getProd().getId()%>,1" style="display: none">
+			    		<!--
+			    		-->
+			    		<label for="<%= vp.getProd().getDescripcion()%>5">★</label>
+			 		</p>
+			 		
+				</form>
+			<%} %>
+			<%if(vp.getVenta().getEstado().equals("pendiente") && us.getTipoUsuario().getId_TipoUsuario() == 1){%>
+				<form method="post" action="Carrito">
+					<input name="cambiarEstado" value="<%=vp.getVenta().getId_venta()%>" style="display: none">
+					<button type="submit" class="btn btn-primary" >Cambiar Estado</button>
+				</form>
+			<%} %>
 	 </div>
 	<%}%>
+	</div>
 
 </body>
 </html>

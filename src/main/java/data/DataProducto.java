@@ -18,7 +18,7 @@ public class DataProducto {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("SELECT p.id_producto,p.descripcion,p.precio,p.stock,c.id_categoria,c.denominacion "
+			rs= stmt.executeQuery("SELECT p.id_producto,p.descripcion,p.precio,p.stock,p.promedio_valoracion,c.id_categoria,c.denominacion "
 					+ "FROM producto p "
 					+ "inner join categoria c on c.id_categoria = p.id_categoria;");
 			
@@ -29,6 +29,7 @@ public class DataProducto {
 					p.setDescripcion(rs.getString("descripcion"));
 					p.setPrecio(rs.getDouble("precio"));
 					p.setStock(rs.getInt("stock"));
+					p.setPromedio_valoracion(rs.getInt("promedio_valoracion"));
 					p.setCategoria(new Categoria());
 					p.getCategoria().setId_categoria(rs.getInt("id_categoria"));;
 					p.getCategoria().setDenominacion(rs.getString("denominacion"));
@@ -60,7 +61,8 @@ public class DataProducto {
 		
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
-					"SELECT p.id_producto,p.descripcion,p.precio,p.stock,c.id_categoria,c.denominacion "
+					"SELECT p.id_producto, p.descripcion, p.precio, p.stock, p.promedio_valoracion, p.cantidad_valoraciones, "
+					+ "c.id_categoria,c.denominacion "
 							+ "FROM producto p "
 							+ "inner join categoria c on c.id_categoria = p.id_categoria "
 							+ "where p.id_producto=?;"
@@ -73,6 +75,8 @@ public class DataProducto {
 				p.setDescripcion(rs.getString("descripcion"));
 				p.setPrecio(rs.getDouble("precio"));
 				p.setStock(rs.getInt("stock"));
+				p.setPromedio_valoracion(rs.getInt("promedio_valoracion"));
+				p.setCantidad_valoraciones(rs.getInt("cantidad_valoraciones"));
 				p.setCategoria(new Categoria());
 				p.getCategoria().setId_categoria(rs.getInt("id_categoria"));
 				p.getCategoria().setDenominacion(rs.getString("denominacion"));
@@ -254,6 +258,31 @@ public class DataProducto {
 			stmt.setInt(1, p.getId());
 			
 			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void UpdateValoracion(int id_prod, int promedio, int cantidad) {
+		PreparedStatement stmt=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("UPDATE producto " + 
+					"SET promedio_valoracion = ?, cantidad_valoraciones = ? " 
+					+ "WHERE id_producto = ?"
+					);
+			
+			stmt.setInt(1, promedio);
+			stmt.setInt(2, cantidad);
+			stmt.setInt(3, id_prod);
+			stmt.executeUpdate();	
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

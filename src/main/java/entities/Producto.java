@@ -7,6 +7,8 @@ public class Producto {
 	private double precio;
 	private int stock;
 	private Categoria categoria;
+	private int promedio_valoracion;
+	private int cantidad_valoraciones;
 	
 	public int getId() {
 		return id;
@@ -38,6 +40,21 @@ public class Producto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+	
+	public int getPromedio_valoracion() {
+		return promedio_valoracion;
+	}
+	public void setPromedio_valoracion(int promedio_valoracion) {
+		this.promedio_valoracion = promedio_valoracion;
+	}
+	
+	public int getCantidad_valoraciones() {
+		return promedio_valoracion;
+	}
+	public void setCantidad_valoraciones(int cantidad_valoraciones) {
+		this.cantidad_valoraciones = cantidad_valoraciones;
+	}
+	
 	
 	
 }

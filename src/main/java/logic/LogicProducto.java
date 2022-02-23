@@ -43,4 +43,8 @@ public class LogicProducto {
 		dp.delete(p);
 		
 	}
+	
+	public void UpdateValoracion(int id_prod, int promedio, int cantidad) {
+		dp.UpdateValoracion(id_prod, promedio, cantidad);
+	}
 }

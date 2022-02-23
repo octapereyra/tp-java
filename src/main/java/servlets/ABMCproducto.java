@@ -14,6 +14,7 @@ import entities.Categoria;
 import entities.Producto;
 import logic.LogicCategoria;
 import logic.LogicProducto;
+import logic.LogicVenta;
 
 /*
 	Servlet implementation class ABMCproducto
@@ -104,8 +105,41 @@ public class ABMCproducto extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		LogicProducto lp = new LogicProducto();
+		LogicVenta lv = new LogicVenta();
+		String respuesta = request.getParameter("estrellas");
+		
+		String[] split = respuesta.split(",");
+        
+		int id_venta = Integer.parseInt(split[0]);
+		
+		int id_prod = Integer.parseInt(split[1]);
+		
+		int num_estrellas = Integer.parseInt(split[2]);
+		
+		//Primero agrego el nuevo promedio de valoraciones y la cantidad de votaciones al producto 
+		
+		Producto p = lp.getOne(id_prod);
+		
+		int total_votaciones_promedio_viejo = p.getPromedio_valoracion() * p.getCantidad_valoraciones();
+		
+		double promedio_nuevo = (total_votaciones_promedio_viejo + num_estrellas) / (p.getCantidad_valoraciones()+1);
+		
+		Double promedio_nuevo_convertir1 = (double)Math.round(promedio_nuevo);
+		
+		int promedio_nuevo_convertir2 = promedio_nuevo_convertir1.intValue();
+		
+		int cantidad_nueva = p.getCantidad_valoraciones()+1;
+		
+		lp.UpdateValoracion(p.getId(), promedio_nuevo_convertir2 , cantidad_nueva);
+		
+		//Segundo actualizo el wasValued de venta_producto
+		
+		lv.UpdateWasValued(id_venta, id_prod, true);
+
+		request.getRequestDispatcher("MisCompras.jsp").forward(request, response);
+	
 	}
 
 }

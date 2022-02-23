@@ -125,8 +125,14 @@ public class Carrito extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		 
+		LogicVenta lv = new LogicVenta();
+		
+		int id_venta = Integer.parseInt(request.getParameter("cambiarEstado")); 
+		
+		lv.UpdateEstado(id_venta,"entregado");
+		
+		request.getRequestDispatcher("MisCompras.jsp").forward(request, response);
 	}
 
 }
