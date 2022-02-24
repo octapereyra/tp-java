@@ -124,15 +124,11 @@ public class ABMCproducto extends HttpServlet {
 		
 		int total_votaciones_promedio_viejo = p.getPromedio_valoracion() * p.getCantidad_valoraciones();
 		
-		double promedio_nuevo = (total_votaciones_promedio_viejo + num_estrellas) / (p.getCantidad_valoraciones()+1);
-		
-		Double promedio_nuevo_convertir1 = (double)Math.round(promedio_nuevo);
-		
-		int promedio_nuevo_convertir2 = promedio_nuevo_convertir1.intValue();
+		int promedio_nuevo = Math.round((total_votaciones_promedio_viejo + num_estrellas) / (p.getCantidad_valoraciones()+1));
 		
 		int cantidad_nueva = p.getCantidad_valoraciones()+1;
 		
-		lp.UpdateValoracion(p.getId(), promedio_nuevo_convertir2 , cantidad_nueva);
+		lp.UpdateValoracion(p.getId(), promedio_nuevo , cantidad_nueva);
 		
 		//Segundo actualizo el wasValued de venta_producto
 		

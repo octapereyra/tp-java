@@ -111,7 +111,7 @@
 					  			<div class="card-body">
 					    			<h5 class="card-title">Gabinete Pc Gamer Sentey X10 Rgb Acrilico Gaming Usb 3.0 Sin Fuente</h5>
 					    			<p class="card-text">$ 7,209</p>
-					    			<a href="#" class="btn btn-primary">Agregar al carrito</a>
+					    			<a href="./listProducts.jsp" class="btn btn-primary">Descubrilo</a>
 					  			</div>
 							</div>
 							<div class="card border-dark mb-3 mx-2" style="width: 18rem;">
@@ -119,7 +119,7 @@
 					  			<div class="card-body">
 					    			<h5 class="card-title">Gabinete Gamer Noganet 8609 Fuente 600w, 3 Coolers con LEDs</h5>
 					    			<p class="card-text">$ 16.620</p>
-					    			<a href="#" class="btn btn-primary">Agregar al carrito</a>
+					    			<a href="./listProducts.jsp" class="btn btn-primary">Descubrilo</a>
 					  			</div>
 							</div>
 							<div class="card border-dark mb-3 mx-2" style="width: 18rem;">
@@ -127,7 +127,7 @@
 					  			<div class="card-body">
 					    			<h5 class="card-title">Gabinete Gamer Aerocool Rift White Mid Tower Rgb Blanco</h5>
 					    			<p class="card-text">$ 9,999</p>
-					    			<a href="#" class="btn btn-primary">Agregar al carrito</a>
+					    			<a href="./listProducts.jsp" class="btn btn-primary">Descubrilo</a>
 					  			</div>
 							</div>
 							<div class="card border-dark mb-3 mx-2" style="width: 18rem;">
@@ -135,7 +135,7 @@
 					  			<div class="card-body">
 					    			<h5 class="card-title">Gabinete Gamer Aorus Ac300g Tg Glass Atx Black</h5>
 					    			<p class="card-text">$ 16,962</p>
-					    			<a href="#" class="btn btn-primary">Agregar al carrito</a>
+					    			<a href="./listProducts.jsp" class="btn btn-primary">Descubrilo</a>
 					  			</div>
 							</div>
 						</div>

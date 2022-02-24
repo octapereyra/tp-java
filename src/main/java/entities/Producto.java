@@ -49,7 +49,7 @@ public class Producto {
 	}
 	
 	public int getCantidad_valoraciones() {
-		return promedio_valoracion;
+		return cantidad_valoraciones;
 	}
 	public void setCantidad_valoraciones(int cantidad_valoraciones) {
 		this.cantidad_valoraciones = cantidad_valoraciones;
