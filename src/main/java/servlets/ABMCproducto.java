@@ -31,14 +31,16 @@ public class ABMCproducto extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		LogicProducto lp = new LogicProducto();
 		LogicCategoria lc = new LogicCategoria();
-		String accion;
+		
 		LinkedList<Producto> listaProductos;
+		
 		RequestDispatcher distpacher = null;
 		
-		accion = request.getParameter("accion");
-
+		String accion = request.getParameter("accion");
+		
 		if(accion == null || accion.isEmpty()) {
 			
 			distpacher = request.getRequestDispatcher("listProducts.jsp");
@@ -75,7 +77,7 @@ public class ABMCproducto extends HttpServlet {
 			Producto pr = new Producto();
 			Categoria cat;
 			
-			pr.setId(Integer.parseInt(request.getParameter("id")));;
+			pr.setId(Integer.parseInt(request.getParameter("id")));
 			pr.setDescripcion(request.getParameter("descripcion"));
 			pr.setPrecio(Double.parseDouble(request.getParameter("precio")));
 			pr.setStock(Integer.parseInt(request.getParameter("stock")));

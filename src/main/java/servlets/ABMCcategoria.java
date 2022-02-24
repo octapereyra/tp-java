@@ -68,14 +68,16 @@ public class ABMCcategoria extends HttpServlet {
 	}else if("update".equals(accion)) {
 		
 		Categoria cat= new Categoria();
+		
 		cat.setId_categoria(Integer.parseInt(request.getParameter("id")));
 		cat.setDenominacion(request.getParameter("denominacion"));
+		
 		lc.update(cat);
 		
 		
 		listaCategorias = lc.getAll();
 		request.setAttribute("listaCat", listaCategorias);
-		distpacher = request.getRequestDispatcher("listProducts.jsp");
+		distpacher = request.getRequestDispatcher("Categorias.jsp");
 	}else if("eliminar".equals(accion)) {
 		Categoria cat= new Categoria();
 		

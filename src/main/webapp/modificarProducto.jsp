@@ -12,12 +12,17 @@
 	<title>Producto</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
 	
+	<%LogicCategoria lc = new LogicCategoria();%>
+	<%LinkedList<Categoria> list =  (LinkedList<Categoria>)request.getAttribute("listaCat");%>
+	<%if(list == null) {list = lc.getAll();}%>
 </head>
 <body>
 	<%LogicProducto lp = new LogicProducto();%>
 	<%Producto prod = (Producto)request.getAttribute("producto");%>
 	<div class="container">
-		<form action="ABMCproducto?accion=update" method="post">
+		<form action="ABMCproducto" method="get">
+			
+			<input type="hidden" name="accion" value="update">
 			
 			<div class="mb-3">
 		    	<input name="id" type="hidden" class="form-control" value="<%=prod.getId() %>">
@@ -36,25 +41,14 @@
 		    	<input name="stock" type="text" class="form-control" value="<%=prod.getStock() %>">
 		  	</div>
 		  	
-		  	<%LogicCategoria lc = new LogicCategoria();%>
-			<%LinkedList<Categoria> list =  (LinkedList<Categoria>)request.getAttribute("listaCat");%>
-			<%if(list == null) {list = lc.getAll();}%>
-		  	
-		  	<div class="btn-group-vertical" role="group" aria-label="Basic checkbox toggle button group">
-		  	<label class="label px-1">Seleccione una categoria</label>
-		  	
-		   <% Integer i=0;
-		   	String id = null;
-		   for (Categoria cat : list) { 
-		   		i++;
-		   		id = "btncheck"+i;
-		   %>
-		  	<input name="tipoProducto" type="radio" class="btn-check" id=<%=id%> autocomplete="off" value="<%=cat.getDenominacion()%>">
-			<label class="btn btn-outline-primary" for=<%=id%>><%=cat.getDenominacion()%></label>
-				
-			<% }%>>
+		   <label class="label px-1">Seleccione una categoria</label>
+			<% for (Categoria c : list) {  %>	  
+				<div class="form-check">
+  					<input class="form-check-input" type="radio" name="tipoProducto" id="<%=c.getId_categoria()%>" value="<%=c.getDenominacion()%>" checked>
+  					<label class="form-check-label" for="<%=c.getId_categoria()%>"> <%=c.getDenominacion()%> </label>
+				</div>
+			<% }%>	
 
-			</div>
 	  		<button id="guardar" name="guardar" type="submit" class="btn btn-primary">Guardar</button>
 		</form>
 	</div>

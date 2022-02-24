@@ -7,7 +7,10 @@
 </head>
 <body>
 	<div class="container">
-		<form action="ABMCcategoria?accion=insert" method="POST" autocomplete="off">
+		<form action="ABMCcategoria" method="get" autocomplete="off">
+		
+			<input type="hidden" name="accion" value="insert">
+			
 		    <div class="mb-3">
 		    	<label class="form-label">Denominacion</label>
 		    	<input id="denominacion" name="denominacion" type="text" class="form-control">

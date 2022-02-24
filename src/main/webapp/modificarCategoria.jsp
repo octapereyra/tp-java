@@ -17,8 +17,10 @@
 	<%LogicCategoria lc = new LogicCategoria();%>
 	<%Categoria cat = (Categoria)request.getAttribute("categoria");%>
 	<div class="container">
-		<form action="ABMCproducto?accion=update" method="post">
+		<form action="ABMCcategoria" method="get">
 		  	
+		  	<input type="hidden" name="accion" value="update">
+		  	<input name="id" type="hidden" class="form-control" value="<%=cat.getId_categoria() %>">
 			<div class="mb-3">
 		    	<label class="form-label">Denominacion</label>
 		    	<input name="denominacion" type="text" class="form-control" value="<%=cat.getDenominacion() %>">
