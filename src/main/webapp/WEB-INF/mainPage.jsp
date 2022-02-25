@@ -57,7 +57,7 @@
                     </li>
                     <%} %>
     				<li class="nav-item">
-    					<a class="nav-link" aria-current="page" href="./Carro_de_compras.jsp">Mi carrito</a>
+    					<a class="nav-link" aria-current="page" href="Carrito?accion=carrito">Mi carrito</a>
     				</li>
     				<li class="nav-item">
     					<a class="nav-link" aria-current="page" href="./MisCompras.jsp">Mis Compras</a>

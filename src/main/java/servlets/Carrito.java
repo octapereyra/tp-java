@@ -78,6 +78,38 @@ public class Carrito extends HttpServlet {
 			request.setAttribute("lista", listaProductos);
 			distpacher = request.getRequestDispatcher("listProducts.jsp");
 			
+		}else if("agregarCarritoxProd".equals(accion)) { 
+			int idp= Integer.parseInt(request.getParameter("id"));
+			boolean bandera=false;
+			int indice = 0;
+			
+			//Me fijo si idp ya está en el array
+			for(int i=0; i<listaCarrito.size(); i++) {
+				if(idp == listaCarrito.get(i)[0]) {
+					bandera = true;
+					indice  = i;
+					break;
+				}else {
+					bandera = false;
+				}
+			}
+			
+			//Si idp ya está, le sumo uno a la cantidad, sino está lo agrego al arraylist
+			if(bandera == true) {
+				listaCarrito.get(indice)[1] = listaCarrito.get(indice)[1] + 1;
+			}else {
+				int[] elemento = {idp, 1};
+				listaCarrito.add(elemento);
+			}
+			
+			
+			listaProductos = lp.getAll();
+			request.getSession().setAttribute("listaCarrito", listaCarrito);
+			request.setAttribute("lista", listaProductos);
+			LinkedList<Producto> list = lp.getbyCategoria(request.getParameter("catDen"));
+			request.setAttribute("list", list);
+			distpacher = request.getRequestDispatcher("listProductsByCat.jsp");
+			
 		}else if("carrito".equals(accion)) {
 			
 			totalPagar=0.0;

@@ -11,8 +11,9 @@
 	<meta charset="ISO-8859-1">
 	<title>Productos</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/listProducts_style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+	integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 	
 	<%LogicProducto lp = new LogicProducto();%>
 	
@@ -64,7 +65,7 @@
                     </li>
                     <%} %>
     				<li class="nav-item">
-    					<a class="nav-link" aria-current="page" href="./Carro_de_compras.jsp">Mi carrito</a>
+    					<a class="nav-link" aria-current="page" href="Carrito?accion=carrito">Mi carrito</a>
     				</li>
     				<li class="nav-item">
     					<a class="nav-link" aria-current="page" href="./MisCompras.jsp">Mis Compras</a>

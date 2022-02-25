@@ -38,7 +38,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
     			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
     				<li class="nav-item">
-    					<a class="nav-link" aria-current="page" href="#">Home</a>
+    					<a class="nav-link" aria-current="page" href="MainPage?accion=home">Home</a>
     				</li>
     				<li class="nav-item">
     					<a class="nav-link" aria-current="page" href="./listProducts.jsp">Productos</a>
@@ -63,7 +63,7 @@
                     </li>
                     <%} %>
     				<li class="nav-item">
-    					<a class="nav-link active" aria-current="page" href="./Carro_de_compras.jsp">Mi carrito</a>
+    					<a class="nav-link active" aria-current="page" href="Carrito?accion=carrito">Mi carrito</a>
     				</li>
     				<li class="nav-item">
     					<a class="nav-link" aria-current="page" href="./MisCompras.jsp">Mis Compras</a>

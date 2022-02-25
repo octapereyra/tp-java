@@ -154,7 +154,7 @@ public class DataProducto {
 		
 		try {
 			stmt = DbConnector.getInstancia().getConn().prepareStatement(
-					"select p.id_producto,p.descripcion,p.precio from producto p "
+					"select p.id_producto,p.descripcion,p.precio,p.promedio_valoracion,c.denominacion from producto p "
 					+ "inner join categoria c on p.id_categoria=c.id_categoria "
 					+ "where c.denominacion=?;"
 					);
@@ -167,6 +167,9 @@ public class DataProducto {
 					p.setId(rs.getInt("id_producto"));
 					p.setDescripcion(rs.getString("descripcion"));
 					p.setPrecio(rs.getDouble("precio"));
+					p.setPromedio_valoracion(rs.getInt("promedio_valoracion"));
+					p.setCategoria(new Categoria());
+					p.getCategoria().setDenominacion(rs.getString("denominacion"));
 					
 					productos.add(p);
 				}
